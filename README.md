@@ -16,7 +16,7 @@ A progressive web demo app for UK driving theory test preparation with bilingual
 
 ## Live Demo
 
-[Try the live demo here](https://rmehmood786.github.io/dvsa-theory-test-pro-demoApp/) ( will be available soon or contact rashidmehmood5914@gmail.com for a quick demo )
+[Try the live demo here](https://rmehmood786.github.io/dvsa-theory-test-pro-demoApp/)
 
 ## Technologies Used
 
