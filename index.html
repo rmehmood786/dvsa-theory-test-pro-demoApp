@@ -21,6 +21,7 @@
             --card-bg: #ffffff;
             --text-primary: #2c3e50;
             --text-secondary: #7f8c8d;
+            --border-radius: 12px;
         }
 
         [data-theme="dark"] {
@@ -30,10 +31,11 @@
             --card-bg: #16213e;
             --text-primary: #f0f0f0;
             --text-secondary: #bdc3c7;
+            --light: #2a2a4a;
         }
 
         * {
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
             box-sizing: border-box;
         }
 
@@ -62,17 +64,18 @@
         }
 
         .card {
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             margin-bottom: 20px;
             border: none;
             background: var(--card-bg);
+            overflow: hidden;
         }
 
         .card-header {
             background: linear-gradient(90deg, var(--secondary), #4a6491);
             color: white;
-            border-radius: 15px 15px 0 0 !important;
+            border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
             font-weight: 600;
             padding: 12px 15px;
         }
@@ -163,7 +166,8 @@
             margin: 10px 0;
             box-shadow: 0 4px 10px rgba(52, 148, 230, 0.3);
             transition: all 0.3s;
-            width: 100%;
+            width: auto;
+            display: inline-block;
         }
 
         .language-toggle {
@@ -238,6 +242,11 @@
             font-size: 0.9rem;
         }
 
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
+        }
+
         .read-aloud-btn {
             background: linear-gradient(90deg, #9b59b6, #8e44ad);
             color: white;
@@ -268,6 +277,7 @@
             transition: all 0.3s;
             font-weight: 500;
             font-size: 0.9rem;
+            cursor: pointer;
         }
 
         .category-btn.active, .category-btn:hover {
@@ -415,6 +425,108 @@
             margin: 15px 0;
         }
 
+        /* New features */
+        .floating-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .floating-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .floating-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .floating-btn-primary {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .floating-btn-secondary {
+            background: var(--card-bg);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .achievement-badge {
+            display: inline-flex;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 8px 12px;
+            border-radius: 20px;
+            margin: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+        }
+
+        .achievement-badge i {
+            margin-right: 5px;
+            color: var(--warning);
+        }
+
+        .mini-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .mini-card-title {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .mini-card-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .streak-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .streak-display i {
+            margin-right: 5px;
+        }
+
+        .btn-group-responsive {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .btn-group-responsive .btn {
+            flex: 1;
+            min-width: 120px;
+        }
+
         /* Mobile-specific styles */
         @media (max-width: 768px) {
             .navbar-brand {
@@ -511,6 +623,17 @@
             .road-sign {
                 max-width: 90%;
             }
+
+            .floating-buttons {
+                bottom: 15px;
+                right: 15px;
+            }
+
+            .floating-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 0.9rem;
+            }
         }
 
         @media (max-width: 576px) {
@@ -580,6 +703,12 @@
             .stats-number {
                 font-size: 1.2rem;
             }
+
+            .btn-group-responsive .btn {
+                min-width: 100px;
+                font-size: 0.8rem;
+                padding: 5px 10px;
+            }
         }
 
         /* Custom utilities for mobile */
@@ -621,6 +750,27 @@
             outline: 2px solid var(--primary);
             outline-offset: 2px;
         }
+
+        /* New animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .bounce {
+            animation: bounce 2s;
+        }
     </style>
 </head>
 <body>
@@ -654,27 +804,46 @@
                             <h3 class="section-title">DVSA Theory Test Pro</h3>
                             <p class="text-center">Prepare for your driving theory test with questions in English and Urdu</p>
                             
+                            <!-- Stats and streak display -->
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="streak-display">
+                                    <i class="fas fa-fire"></i> 5 Day Streak
+                                </div>
+                                <div class="achievement-badge">
+                                    <i class="fas fa-trophy"></i> Master Level
+                                </div>
+                            </div>
+                            
                             <div class="row mt-3">
-                                <div class="col-6">
-                                    <div class="stats-box text-center">
-                                        <div class="stats-number" id="total-questions-stats">50</div>
-                                        <div>Questions</div>
+                                <div class="col-4">
+                                    <div class="mini-card">
+                                        <div class="mini-card-title">Questions</div>
+                                        <div class="mini-card-value" id="total-questions-stats">50</div>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <div class="stats-box text-center">
-                                        <div class="stats-number" id="mastery-score">0%</div>
-                                        <div>Mastery</div>
+                                <div class="col-4">
+                                    <div class="mini-card">
+                                        <div class="mini-card-title">Mastery</div>
+                                        <div class="mini-card-value" id="mastery-score">0%</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="mini-card">
+                                        <div class="mini-card-title">Bookmarks</div>
+                                        <div class="mini-card-value" id="bookmarks-count">0</div>
                                     </div>
                                 </div>
                             </div>
                             
-                            <div class="d-grid gap-2 mt-3">
-                                <button class="btn btn-primary btn-lg" id="start-quiz-btn">
+                            <div class="btn-group-responsive mt-4">
+                                <button class="btn btn-primary" id="start-quiz-btn">
                                     <i class="fas fa-play-circle me-2"></i>Start Test
                                 </button>
                                 <button class="btn btn-outline-primary" id="bookmarked-questions-btn">
                                     <i class="fas fa-bookmark me-2"></i>Bookmarks
+                                </button>
+                                <button class="btn btn-outline-info" id="practice-mode-btn">
+                                    <i class="fas fa-graduation-cap me-2"></i>Practice
                                 </button>
                             </div>
                         </div>
@@ -723,6 +892,11 @@
                                 <input class="form-check-input" type="checkbox" id="hints-setting" checked>
                                 <label class="form-check-label" for="hints-setting">Show hints</label>
                             </div>
+
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="instant-feedback" checked>
+                                <label class="form-check-label" for="instant-feedback">Instant feedback</label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -755,9 +929,11 @@
                         <p>2. Questions are automatically checked</p>
                         <p>3. Use Next button to continue</p>
                         <p>4. Add to home screen for easy access</p>
-                        <button class="pwa-install-btn" id="installButton">
-                            <i class="fas fa-plus-circle me-2"></i>Add to Home Screen
-                        </button>
+                        <div class="text-center">
+                            <button class="pwa-install-btn" id="installButton">
+                                <i class="fas fa-plus-circle me-2"></i>Add to Home Screen
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -788,9 +964,14 @@
                             <div class="col-6 question-title urdu-text">سوال</div>
                         </div>
                     </div>
-                    <button class="bookmark-btn" id="bookmark-question">
-                        <i class="far fa-bookmark"></i>
-                    </button>
+                    <div>
+                        <button class="bookmark-btn" id="bookmark-question">
+                            <i class="far fa-bookmark"></i>
+                        </button>
+                        <button class="bookmark-btn" id="mark-review">
+                            <i class="far fa-flag"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="card-body">
                     <!-- Road Sign Image -->
@@ -836,13 +1017,13 @@
                     <!-- Navigation Buttons -->
                     <div class="d-flex justify-content-between mt-3">
                         <button id="prev-btn" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i>
+                            <i class="fas fa-arrow-left me-1"></i>Previous
                         </button>
                         <button id="hint-btn" class="btn btn-info">
-                            <i class="fas fa-lightbulb"></i>
+                            <i class="fas fa-lightbulb me-1"></i>Hint
                         </button>
                         <button id="next-btn" class="btn btn-success">
-                            <i class="fas fa-arrow-right"></i>
+                            Next <i class="fas fa-arrow-right ms-1"></i>
                         </button>
                     </div>
                 </div>
@@ -862,28 +1043,34 @@
                 <p id="result-detail">You scored 0 out of 50 questions correctly.</p>
                 
                 <div class="row mt-3">
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="stats-box text-center">
                             <div class="stats-number" id="result-time">00:00</div>
                             <div>Time</div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="stats-box text-center">
                             <div class="stats-number" id="result-percentage">0%</div>
                             <div>Score</div>
                         </div>
                     </div>
+                    <div class="col-4">
+                        <div class="stats-box text-center">
+                            <div class="stats-number" id="result-streak">5</div>
+                            <div>Streak</div>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="mt-3">
-                    <button id="review-answers" class="btn btn-info me-2 mb-2">
+                <div class="btn-group-responsive mt-4">
+                    <button id="review-answers" class="btn btn-info">
                         <i class="fas fa-search me-2"></i>Review
                     </button>
-                    <button id="restart-quiz" class="btn btn-primary me-2 mb-2">
+                    <button id="restart-quiz" class="btn btn-primary">
                         <i class="fas fa-redo me-2"></i>Retry
                     </button>
-                    <button id="back-to-dashboard" class="btn btn-secondary mb-2">
+                    <button id="back-to-dashboard" class="btn btn-secondary">
                         <i class="fas fa-home me-2"></i>Home
                     </button>
                 </div>
@@ -936,6 +1123,16 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Floating buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn floating-btn-primary" id="quick-settings" title="Quick Settings">
+            <i class="fas fa-cog"></i>
+        </button>
+        <button class="floating-btn floating-btn-secondary" id="quick-home" title="Back to Home">
+            <i class="fas fa-home"></i>
+        </button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -1116,6 +1313,9 @@
         let answeredQuestions = {};
         let quizQuestions = [];
         let userAnswers = {};
+        let markedForReview = [];
+        let practiceMode = false;
+        let learningStreak = 5;
 
         // DOM Elements
         const dashboardView = document.getElementById('dashboard-view');
@@ -1140,6 +1340,7 @@
         const hintBox = document.getElementById('hint-box');
         const hintText = document.getElementById('hint-text');
         const bookmarkBtn = document.getElementById('bookmark-question');
+        const markReviewBtn = document.getElementById('mark-review');
         const timerEl = document.getElementById('timer');
         const themeToggle = document.getElementById('theme-toggle');
         const signContainer = document.getElementById('sign-container');
@@ -1152,6 +1353,7 @@
         const resultDetailEl = document.getElementById('result-detail');
         const resultTimeEl = document.getElementById('result-time');
         const resultPercentageEl = document.getElementById('result-percentage');
+        const resultStreakEl = document.getElementById('result-streak');
         const restartQuizBtn = document.getElementById('restart-quiz');
         const reviewAnswersBtn = document.getElementById('review-answers');
         const backToDashboardBtn = document.getElementById('back-to-dashboard');
@@ -1159,12 +1361,19 @@
         // Dashboard elements
         const startQuizBtn = document.getElementById('start-quiz-btn');
         const bookmarkedQuestionsBtn = document.getElementById('bookmarked-questions-btn');
+        const practiceModeBtn = document.getElementById('practice-mode-btn');
         const questionsLimit = document.getElementById('questions-limit');
         const timeLimit = document.getElementById('time-limit');
         const readAloudSetting = document.getElementById('read-aloud-setting');
         const hintsSetting = document.getElementById('hints-setting');
+        const instantFeedbackSetting = document.getElementById('instant-feedback');
         const totalQuestionsStats = document.getElementById('total-questions-stats');
         const masteryScore = document.getElementById('mastery-score');
+        const bookmarksCount = document.getElementById('bookmarks-count');
+        
+        // Floating buttons
+        const quickSettingsBtn = document.getElementById('quick-settings');
+        const quickHomeBtn = document.getElementById('quick-home');
 
         // Initialize the app
         function initApp() {
@@ -1179,8 +1388,9 @@
             themeToggle.addEventListener('change', toggleTheme);
             
             // Dashboard buttons
-            startQuizBtn.addEventListener('click', startQuiz);
+            startQuizBtn.addEventListener('click', () => startQuiz(false));
             bookmarkedQuestionsBtn.addEventListener('click', showBookmarkedQuestions);
+            practiceModeBtn.addEventListener('click', () => startQuiz(true));
             
             // Quiz buttons
             nextBtn.addEventListener('click', nextQuestion);
@@ -1189,6 +1399,7 @@
             readAloudUrBtn.addEventListener('click', () => readQuestionAloud('ur'));
             hintBtn.addEventListener('click', toggleHint);
             bookmarkBtn.addEventListener('click', toggleBookmark);
+            markReviewBtn.addEventListener('click', toggleMarkReview);
             
             // Results buttons
             restartQuizBtn.addEventListener('click', restartQuiz);
@@ -1205,6 +1416,10 @@
             
             // PWA install button
             document.getElementById('installButton').addEventListener('click', showPWAInstructions);
+            
+            // Floating buttons
+            quickSettingsBtn.addEventListener('click', showQuickSettings);
+            quickHomeBtn.addEventListener('click', showDashboard);
         }
 
         function loadUserData() {
@@ -1220,6 +1435,18 @@
                 answeredQuestions = JSON.parse(savedAnswers);
             }
             
+            // Load marked for review
+            const savedMarked = localStorage.getItem('dvsaMarked');
+            if (savedMarked) {
+                markedForReview = JSON.parse(savedMarked);
+            }
+            
+            // Load streak
+            const savedStreak = localStorage.getItem('dvsaStreak');
+            if (savedStreak) {
+                learningStreak = parseInt(savedStreak);
+            }
+            
             // Load theme preference
             const savedTheme = localStorage.getItem('dvsaTheme');
             if (savedTheme) {
@@ -1231,11 +1458,14 @@
         function saveUserData() {
             localStorage.setItem('dvsaBookmarks', JSON.stringify(bookmarkedQuestions));
             localStorage.setItem('dvsaAnswers', JSON.stringify(answeredQuestions));
+            localStorage.setItem('dvsaMarked', JSON.stringify(markedForReview));
+            localStorage.setItem('dvsaStreak', learningStreak.toString());
         }
 
         function updateDashboardStats() {
             const totalQuestions = questions.length;
             totalQuestionsStats.textContent = totalQuestions;
+            bookmarksCount.textContent = bookmarkedQuestions.length;
             
             // Calculate mastery score based on correctly answered questions
             const correctCount = Object.values(answeredQuestions).filter(a => a.correct).length;
@@ -1243,7 +1473,9 @@
             masteryScore.textContent = `${mastery}%`;
         }
 
-        function startQuiz() {
+        function startQuiz(isPractice) {
+            practiceMode = isPractice;
+            
             // Get selected category
             const category = currentCategory === 'all' ? null : currentCategory;
             
@@ -1271,10 +1503,10 @@
             timeRemaining = timeLimitMinutes * 60;
             startTime = Date.now();
             
-            if (timeLimitMinutes > 0) {
+            if (timeLimitMinutes > 0 && !practiceMode) {
                 startTimer();
             } else {
-                timerEl.textContent = 'No Limit';
+                timerEl.textContent = practiceMode ? 'Practice' : 'No Limit';
             }
             
             // Update UI
@@ -1362,13 +1594,19 @@
                     
                     selectedOption = parseInt(index);
                     
-                    // Automatically check the answer after a short delay
-                    setTimeout(checkAnswer, 500);
+                    // Check the answer if not in practice mode or if instant feedback is enabled
+                    if (!practiceMode || instantFeedbackSetting.checked) {
+                        setTimeout(checkAnswer, 500);
+                    } else {
+                        // In practice mode without instant feedback, just enable next button
+                        nextBtn.disabled = false;
+                    }
                 });
             });
             
-            // Update bookmark button
+            // Update bookmark and mark review buttons
             updateBookmarkButton();
+            updateMarkReviewButton();
             
             // Hide feedback and hint
             feedbackEl.classList.add('d-none');
@@ -1376,6 +1614,7 @@
             
             // Update button states
             prevBtn.disabled = currentQuestion === 0;
+            nextBtn.disabled = practiceMode && !instantFeedbackSetting.checked;
             
             // Update progress bar
             updateProgressBar();
@@ -1417,6 +1656,9 @@
                     btn.classList.remove('btn-primary', 'btn-secondary', 'btn-light');
                     btn.classList.add('btn-success', 'correct');
                 });
+                
+                // Increase learning streak for correct answers
+                learningStreak++;
             } else {
                 feedbackTextEl.innerHTML = `<i class="fas fa-times-circle me-2"></i> Incorrect. ${question.explanation}`;
                 feedbackEl.classList.remove('d-none', 'alert-info', 'alert-success');
@@ -1433,6 +1675,9 @@
                     btn.classList.remove('btn-primary');
                     btn.classList.add('btn-danger', 'incorrect');
                 });
+                
+                // Reset learning streak for incorrect answers
+                learningStreak = 0;
             }
             
             totalAnswered++;
@@ -1445,12 +1690,14 @@
             // Save user data
             saveUserData();
             
-            // Auto move to next question after a delay
-            setTimeout(() => {
-                if (currentQuestion < quizQuestions.length - 1) {
-                    nextQuestion();
-                }
-            }, 2000);
+            // Auto move to next question after a delay if not in practice mode
+            if (!practiceMode) {
+                setTimeout(() => {
+                    if (currentQuestion < quizQuestions.length - 1) {
+                        nextQuestion();
+                    }
+                }, 2000);
+            }
         }
 
         function nextQuestion() {
@@ -1487,6 +1734,7 @@
             finalScoreEl.textContent = score;
             totalQuestionsFinalEl.textContent = quizQuestions.length;
             resultTimeEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            resultStreakEl.textContent = learningStreak;
             
             const percentage = Math.round((score / quizQuestions.length) * 100);
             resultPercentageEl.textContent = `${percentage}%`;
@@ -1513,10 +1761,13 @@
             
             // Update dashboard stats
             updateDashboardStats();
+            
+            // Save user data
+            saveUserData();
         }
 
         function restartQuiz() {
-            startQuiz();
+            startQuiz(practiceMode);
         }
 
         function showReview() {
@@ -1598,7 +1849,7 @@
             }
             
             // Start quiz with bookmarked questions
-            startQuiz();
+            startQuiz(true);
         }
 
         function toggleBookmark() {
@@ -1618,6 +1869,29 @@
             
             // Save user data
             saveUserData();
+            
+            // Update dashboard stats
+            updateDashboardStats();
+        }
+
+        function toggleMarkReview() {
+            const questionId = quizQuestions[currentQuestion].id;
+            const index = markedForReview.indexOf(questionId);
+            
+            if (index === -1) {
+                // Mark for review
+                markedForReview.push(questionId);
+                markReviewBtn.innerHTML = '<i class="fas fa-flag"></i>';
+                markReviewBtn.classList.add('active');
+            } else {
+                // Remove mark
+                markedForReview.splice(index, 1);
+                markReviewBtn.innerHTML = '<i class="far fa-flag"></i>';
+                markReviewBtn.classList.remove('active');
+            }
+            
+            // Save user data
+            saveUserData();
         }
 
         function updateBookmarkButton() {
@@ -1630,6 +1904,19 @@
             } else {
                 bookmarkBtn.innerHTML = '<i class="far fa-bookmark"></i>';
                 bookmarkBtn.classList.remove('active');
+            }
+        }
+
+        function updateMarkReviewButton() {
+            const questionId = quizQuestions[currentQuestion].id;
+            const isMarked = markedForReview.includes(questionId);
+            
+            if (isMarked) {
+                markReviewBtn.innerHTML = '<i class="fas fa-flag"></i>';
+                markReviewBtn.classList.add('active');
+            } else {
+                markReviewBtn.innerHTML = '<i class="far fa-flag"></i>';
+                markReviewBtn.classList.remove('active');
             }
         }
 
@@ -1757,9 +2044,22 @@
             alert("To add this app to your home screen:\n\n1. Tap the Share button (box with arrow) at the bottom of Safari\n2. Scroll down and tap 'Add to Home Screen'\n3. Tap 'Add' in the top right corner\n\nThis will place the app icon on your home screen for easy access!");
         }
 
+        function showQuickSettings() {
+            // Scroll to settings section
+            document.querySelector('[for="read-aloud-setting"]').closest('.card').scrollIntoView({
+                behavior: 'smooth'
+            });
+            
+            // Pulse animation for attention
+            const settingsCard = document.querySelector('[for="read-aloud-setting"]').closest('.card');
+            settingsCard.classList.add('pulse');
+            setTimeout(() => {
+                settingsCard.classList.remove('pulse');
+            }, 2000);
+        }
+
         // Initialize the app when the DOM is loaded
         document.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
-
 </html>
