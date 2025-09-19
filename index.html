@@ -1,2065 +1,682 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DVSA Theory Test Pro - Urdu</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <style>
-        :root {
-            --primary: #3498db; 
-            --secondary: #2c3e50;
-            --success: #2ecc71;
-            --danger: #e74c3c;
-            --warning: #f39c12;
-            --info: #1abc9c;
-            --light: #ecf0f1;
-            --dark: #34495e;
-            --background: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-primary: #2c3e50;
-            --text-secondary: #7f8c8d;
-            --border-radius: 12px;
-        }
-
-        [data-theme="dark"] {
-            --primary: #5dade2;
-            --secondary: #566573;
-            --background: #1a1a2e;
-            --card-bg: #16213e;
-            --text-primary: #f0f0f0;
-            --text-secondary: #bdc3c7;
-            --light: #2a2a4a;
-        }
-
-        * {
-            transition: background-color 0.3s, color 0.3s, transform 0.2s;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--background);
-            color: var(--text-primary);
-            min-height: 100vh;
-            padding-top: env(safe-area-inset-top);
-            padding-bottom: env(safe-area-inset-bottom);
-            padding-left: env(safe-area-inset-left);
-            padding-right: env(safe-area-inset-right);
-            margin: 0;
-        }
-
-        .navbar {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 0.5rem 1rem;
-        }
-
-        .app-container {
-            max-width: 100%;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        .card {
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            margin-bottom: 20px;
-            border: none;
-            background: var(--card-bg);
-            overflow: hidden;
-        }
-
-        .card-header {
-            background: linear-gradient(90deg, var(--secondary), #4a6491);
-            color: white;
-            border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
-            font-weight: 600;
-            padding: 12px 15px;
-        }
-
-        .option-btn {
-            transition: all 0.3s;
-            text-align: left;
-            margin-bottom: 10px;
-            border-radius: 10px;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            background: var(--card-bg);
-            display: flex;
-            align-items: center;
-            color: var(--text-primary);
-            width: 100%;
-        }
-
-        .option-btn:hover, .option-btn:focus {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border-color: var(--primary);
-        }
-
-        .option-letter {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 12px;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
-        .urdu-text {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 1.1em;
-            line-height: 1.6;
-            text-align: right;
-            direction: rtl;
-        }
-
-        .progress {
-            height: 10px;
-            border-radius: 8px;
-            margin: 15px 0;
-            background: #e0e0e0;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transition: width 0.5s;
-        }
-
-        .score-display {
-            font-size: 1rem;
-            font-weight: bold;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            padding: 8px 12px;
-            border-radius: 8px;
-            background-color: var(--card-bg);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .correct {
-            background-color: #d4ffd4 !important;
-            border-color: #2ecc71 !important;
-        }
-
-        .incorrect {
-            background-color: #ffd4d4 !important;
-            border-color: #e74c3c !important;
-        }
-
-        .pwa-install-btn {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 10px 20px;
-            font-weight: 600;
-            margin: 10px 0;
-            box-shadow: 0 4px 10px rgba(52, 148, 230, 0.3);
-            transition: all 0.3s;
-            width: auto;
-            display: inline-block;
-        }
-
-        .language-toggle {
-            cursor: pointer;
-            padding: 6px 12px;
-            border-radius: 20px;
-            background: #eef2f7;
-            margin: 0 3px;
-            font-weight: 500;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .language-toggle.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        .instructions {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 15px;
-            margin: 15px 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border-left: 4px solid var(--primary);
-        }
-
-        .feature-icon {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-
-        .feature-box {
-            text-align: center;
-            padding: 15px;
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            margin-bottom: 15px;
-        }
-
-        .section-title {
-            position: relative;
-            padding-bottom: 12px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: 700;
-            color: var(--secondary);
-            font-size: 1.5rem;
-        }
-
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 2px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
-        }
-
-        .read-aloud-btn {
-            background: linear-gradient(90deg, #9b59b6, #8e44ad);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 8px 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 10px auto;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .category-filter {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 15px 0;
-            justify-content: center;
-        }
-
-        .category-btn {
-            padding: 6px 12px;
-            border-radius: 20px;
-            background: #eef2f7;
-            border: 2px solid transparent;
-            transition: all 0.3s;
-            font-weight: 500;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-
-        .category-btn.active, .category-btn:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .results-container {
-            text-align: center;
-            padding: 20px;
-            background: var(--card-bg);
-            border-radius: 15px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-            margin: 15px 0;
-        }
-
-        .score-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: conic-gradient(var(--success) 0% var(--p), #f0f0f0 var(--p) 100%);
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .score-circle-inner {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: var(--card-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--text-primary);
-        }
-
-        .theme-switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 28px;
-        }
-
-        .theme-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 34px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 20px;
-            width: 20px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background-color: var(--primary);
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(22px);
-        }
-
-        .timer-display {
-            font-size: 1rem;
-            font-weight: bold;
-            color: var(--primary);
-            background: var(--card-bg);
-            padding: 6px 12px;
-            border-radius: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .stats-box {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        .bookmark-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            padding: 5px;
-        }
-
-        .bookmark-btn.active {
-            color: var(--warning);
-        }
-
-        .hint-box {
-            background: #e3f2fd;
-            border-left: 4px solid var(--info);
-            padding: 12px;
-            border-radius: 5px;
-            margin: 12px 0;
-            font-size: 0.9rem;
-        }
-
-        .stats-number {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .road-sign {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin: 10px 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .sign-container {
-            text-align: center;
-            margin: 15px 0;
-        }
-
-        /* New features */
-        .floating-buttons {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .floating-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: all 0.3s;
-        }
-
-        .floating-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-        }
-
-        .floating-btn-primary {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: white;
-        }
-
-        .floating-btn-secondary {
-            background: var(--card-bg);
-            color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-
-        .achievement-badge {
-            display: inline-flex;
-            align-items: center;
-            background: var(--card-bg);
-            padding: 8px 12px;
-            border-radius: 20px;
-            margin: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            font-size: 0.9rem;
-        }
-
-        .achievement-badge i {
-            margin-right: 5px;
-            color: var(--warning);
-        }
-
-        .mini-card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-
-        .mini-card-title {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 5px;
-        }
-
-        .mini-card-value {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .streak-display {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .streak-display i {
-            margin-right: 5px;
-        }
-
-        .btn-group-responsive {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-        }
-
-        .btn-group-responsive .btn {
-            flex: 1;
-            min-width: 120px;
-        }
-
-        /* Mobile-specific styles */
-        @media (max-width: 768px) {
-            .navbar-brand {
-                font-size: 1.1rem;
-            }
-            
-            .card-header {
-                padding: 10px 12px;
-                font-size: 0.9rem;
-            }
-            
-            .option-btn {
-                padding: 10px;
-                margin-bottom: 8px;
-                font-size: 0.9rem;
-            }
-            
-            .option-letter {
-                width: 24px;
-                height: 24px;
-                margin-right: 8px;
-                font-size: 0.8rem;
-            }
-            
-            .section-title {
-                font-size: 1.3rem;
-            }
-            
-            .btn {
-                padding: 8px 16px;
-                font-size: 0.9rem;
-            }
-            
-            .feature-box {
-                padding: 12px;
-            }
-            
-            .feature-icon {
-                font-size: 1.8rem;
-            }
-            
-            .category-btn {
-                padding: 5px 10px;
-                font-size: 0.8rem;
-            }
-            
-            .language-toggle {
-                padding: 5px 10px;
-                font-size: 0.8rem;
-            }
-            
-            .progress {
-                height: 8px;
-            }
-            
-            .score-display {
-                font-size: 0.9rem;
-                padding: 6px 10px;
-            }
-            
-            .timer-display {
-                font-size: 0.9rem;
-                padding: 5px 10px;
-            }
-            
-            .stats-number {
-                font-size: 1.3rem;
-            }
-            
-            .instructions {
-                padding: 12px;
-            }
-            
-            .instructions h4 {
-                font-size: 1.1rem;
-            }
-            
-            .instructions p {
-                margin-bottom: 8px;
-                font-size: 0.9rem;
-            }
-            
-            .read-aloud-btn {
-                padding: 6px 12px;
-                font-size: 0.8rem;
-                margin: 8px 3px;
-            }
-            
-            .hint-box {
-                padding: 10px;
-                font-size: 0.85rem;
-            }
-            
-            .road-sign {
-                max-width: 90%;
-            }
-
-            .floating-buttons {
-                bottom: 15px;
-                right: 15px;
-            }
-
-            .floating-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .app-container {
-                padding: 0 10px;
-            }
-            
-            .navbar-brand {
-                font-size: 1rem;
-            }
-            
-            .card {
-                border-radius: 12px;
-            }
-            
-            .card-header {
-                border-radius: 12px 12px 0 0;
-            }
-            
-            .option-btn {
-                padding: 8px;
-                font-size: 0.85rem;
-            }
-            
-            .btn {
-                padding: 6px 12px;
-                font-size: 0.85rem;
-            }
-            
-            .section-title {
-                font-size: 1.2rem;
-            }
-            
-            .feature-icon {
-                font-size: 1.5rem;
-            }
-            
-            .score-circle {
-                width: 100px;
-                height: 100px;
-            }
-            
-            .score-circle-inner {
-                width: 80px;
-                height: 80px;
-                font-size: 1.2rem;
-            }
-            
-            .theme-switch {
-                width: 45px;
-                height: 24px;
-            }
-            
-            .slider:before {
-                height: 16px;
-                width: 16px;
-            }
-            
-            input:checked + .slider:before {
-                transform: translateX(21px);
-            }
-            
-            .stats-box {
-                padding: 10px;
-            }
-            
-            .stats-number {
-                font-size: 1.2rem;
-            }
-
-            .btn-group-responsive .btn {
-                min-width: 100px;
-                font-size: 0.8rem;
-                padding: 5px 10px;
-            }
-        }
-
-        /* Custom utilities for mobile */
-        .mobile-hidden {
-            display: none;
-        }
-        
-        .mobile-visible {
-            display: block;
-        }
-        
-        @media (min-width: 769px) {
-            .mobile-hidden {
-                display: block;
-            }
-            
-            .mobile-visible {
-                display: none;
-            }
-        }
-
-        /* Animation for options */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .option-btn {
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        /* Focus styles for accessibility */
-        .option-btn:focus {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-        
-        .btn:focus {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-
-        /* New animations */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-
-        .bounce {
-            animation: bounce 2s;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DVSA Theory Test Pro – Revamp</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #2563eb; /* slightly deeper blue */
+      --secondary: #0f172a; /* slate-900 */
+      --success: #16a34a;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --info: #0891b2;
+      --light: #f8fafc;
+      --dark: #0b1220;
+      --background: #f5f7fb;
+      --card-bg: #ffffff;
+      --text-primary: #111827;
+      --text-secondary: #6b7280;
+      --muted-border: #e5e7eb;
+    }
+
+    [data-theme="dark"] {
+      --primary: #60a5fa;
+      --secondary: #1f2937;
+      --background: #0b1220;
+      --card-bg: #0f172a;
+      --text-primary: #f3f4f6;
+      --text-secondary: #9ca3af;
+      --muted-border: #1f2937;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+        Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--background);
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    /* NAV */
+    .navbar {
+      background: linear-gradient(90deg, var(--primary), #334155);
+      box-shadow: 0 2px 10px rgb(0 0 0 / 8%);
+      padding: .6rem 1rem;
+    }
+
+    .app-container { max-width: 1024px; margin: 0 auto; padding: 12px; }
+
+    /* CARDS */
+    .card {
+      border: 1px solid var(--muted-border);
+      border-radius: 16px;
+      background: var(--card-bg);
+      box-shadow: 0 6px 16px rgb(0 0 0 / 6%);
+    }
+    .card-header {
+      background: linear-gradient(90deg, var(--secondary), #415a8b);
+      color: #fff;
+      border-radius: 16px 16px 0 0 !important;
+      font-weight: 600; padding: 10px 14px;
+    }
+
+    /* SECTION TITLE */
+    .section-title {
+      font-weight: 800; color: var(--secondary); text-align: center; margin: 6px 0 12px;
+    }
+
+    /* COMPACT CONTROLS */
+    .toolbar {
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: center;
+    }
+    .chip {
+      border: 1px solid var(--muted-border); border-radius: 999px; padding: 6px 12px;
+      background: #eef2ff; color: #1e3a8a; font-weight: 600; cursor: pointer;
+    }
+
+    /* BUTTONS — compact, responsive */
+    .btn-primary, .btn-secondary, .btn-outline-primary, .btn-info, .btn-success {
+      border-radius: 999px; font-weight: 700; padding: 8px 14px; border: none;
+    }
+    .btn-primary { background: linear-gradient(90deg, var(--primary), #3b82f6); }
+    .btn-info { background: linear-gradient(90deg, #7c3aed, #2563eb); }
+
+    /* OPTION GRID (fixes too-wide buttons) */
+    .options-grid {
+      display: grid; gap: 10px;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    @media (min-width: 576px) { .options-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (min-width: 992px) { .options-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+    .option {
+      display: grid; grid-template-columns: 44px 1fr; align-items: center; gap: 10px;
+      border: 2px solid var(--muted-border); border-radius: 12px; padding: 10px 12px;
+      background: var(--card-bg); cursor: pointer; transition: transform .12s ease, border-color .2s;
+      max-width: 100%;
+    }
+    .option:hover { transform: translateY(-1px); border-color: var(--primary); }
+    .option.selected { border-color: #60a5fa; box-shadow: 0 4px 10px rgb(37 99 235 / 18%); }
+    .option.correct { border-color: var(--success); background: rgba(34,197,94,.06); }
+    .option.incorrect { border-color: var(--danger); background: rgba(239,68,68,.06); }
+    .pill { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 999px; background: #e5e7eb; font-weight: 800; }
+
+    /* Urdu column kept but compacted; switchable side-by-side vs stacked */
+    .bilingual { display: grid; gap: 8px; }
+    @media (min-width: 768px) { .bilingual { grid-template-columns: 1fr 1fr; } }
+    .urdu-text { font-size: 1.05em; line-height: 1.55; text-align: right; direction: rtl; }
+
+    /* PROGRESS */
+    .progress { height: 10px; border-radius: 999px; background: #e5e7eb; overflow: hidden; }
+    .progress-bar { background: linear-gradient(90deg, var(--primary), #22d3ee); transition: width .25s ease; }
+
+    .score-display { font-weight: 800; }
+    .timer-display { font-weight: 800; }
+
+    /* BOTTOM NAV (mobile-friendly controls) */
+    .bottom-nav {
+      position: sticky; bottom: 0; z-index: 50; padding: 10px; background: rgb(255 255 255 / .85);
+      backdrop-filter: blur(6px); border-top: 1px solid var(--muted-border); display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center;
+    }
+    [data-theme="dark"] .bottom-nav { background: rgb(15 23 42 / .6); }
+
+    /* MODALS */
+    .modal-content { border-radius: 16px; }
+
+    /* Utility */
+    .hidden { display: none !important; }
+  </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
-            <span class="navbar-brand">
-                <i class="fas fa-car me-2"></i>DVSA Theory Pro
-            </span>
-            <div class="d-flex align-items-center">
-                <span class="me-2 text-white mobile-hidden"><i class="fas fa-moon"></i></span>
-                <label class="theme-switch">
-                    <input type="checkbox" id="theme-toggle">
-                    <span class="slider"></span>
-                </label>
-                <span class="ms-2 text-white mobile-hidden"><i class="fas fa-sun"></i></span>
-            </div>
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <span class="navbar-brand"><i class="fas fa-car me-2"></i>DVSA Theory Pro</span>
+      <div class="d-flex align-items-center gap-2">
+        <div class="form-check form-switch text-white m-0">
+          <input class="form-check-input" type="checkbox" id="theme-toggle" />
+          <label class="form-check-label" for="theme-toggle">Dark</label>
         </div>
-    </nav>
+      </div>
+    </div>
+  </nav>
 
-    <div class="container app-container mt-3">
-        <!-- Dashboard View -->
-        <div id="dashboard-view">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="fas fa-tachometer-alt me-2"></i>Dashboard
-                        </div>
-                        <div class="card-body">
-                            <h3 class="section-title">DVSA Theory Test Pro</h3>
-                            <p class="text-center">Prepare for your driving theory test with questions in English and Urdu</p>
-                            
-                            <!-- Stats and streak display -->
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="streak-display">
-                                    <i class="fas fa-fire"></i> 5 Day Streak
-                                </div>
-                                <div class="achievement-badge">
-                                    <i class="fas fa-trophy"></i> Master Level
-                                </div>
-                            </div>
-                            
-                            <div class="row mt-3">
-                                <div class="col-4">
-                                    <div class="mini-card">
-                                        <div class="mini-card-title">Questions</div>
-                                        <div class="mini-card-value" id="total-questions-stats">50</div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="mini-card">
-                                        <div class="mini-card-title">Mastery</div>
-                                        <div class="mini-card-value" id="mastery-score">0%</div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="mini-card">
-                                        <div class="mini-card-title">Bookmarks</div>
-                                        <div class="mini-card-value" id="bookmarks-count">0</div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="btn-group-responsive mt-4">
-                                <button class="btn btn-primary" id="start-quiz-btn">
-                                    <i class="fas fa-play-circle me-2"></i>Start Test
-                                </button>
-                                <button class="btn btn-outline-primary" id="bookmarked-questions-btn">
-                                    <i class="fas fa-bookmark me-2"></i>Bookmarks
-                                </button>
-                                <button class="btn btn-outline-info" id="practice-mode-btn">
-                                    <i class="fas fa-graduation-cap me-2"></i>Practice
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row mt-3">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="fas fa-cog me-2"></i>Settings
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Questions</label>
-                                        <select class="form-select" id="questions-limit">
-                                            <option value="10">10</option>
-                                            <option value="20">20</option>
-                                            <option value="30">30</option>
-                                            <option value="50" selected>All</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Time</label>
-                                        <select class="form-select" id="time-limit">
-                                            <option value="5">5 Min</option>
-                                            <option value="10">10 Min</option>
-                                            <option value="20">20 Min</option>
-                                            <option value="0" selected>No Limit</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="form-check form-switch mb-3">
-                                <input class="form-check-input" type="checkbox" id="read-aloud-setting" checked>
-                                <label class="form-check-label" for="read-aloud-setting">Read questions aloud</label>
-                            </div>
-                            
-                            <div class="form-check form-switch mb-3">
-                                <input class="form-check-input" type="checkbox" id="hints-setting" checked>
-                                <label class="form-check-label" for="hints-setting">Show hints</label>
-                            </div>
+  <div class="app-container">
+    <!-- DASHBOARD -->
+    <div id="dashboard-view" class="mt-3">
+      <div class="card mb-3">
+        <div class="card-header"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</div>
+        <div class="card-body">
+          <h3 class="section-title">DVSA Theory Test Pro</h3>
+          <p class="text-center text-muted">Prepare for your driving theory test with questions in English and Urdu.</p>
 
-                            <div class="form-check form-switch mb-3">
-                                <input class="form-check-input" type="checkbox" id="instant-feedback" checked>
-                                <label class="form-check-label" for="instant-feedback">Instant feedback</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          <div class="row g-3 mt-1">
+            <div class="col-6">
+              <div class="p-3 border rounded-4 text-center">
+                <div class="fs-3 fw-bold" id="total-questions-stats">50</div>
+                <div class="text-muted">Questions</div>
+              </div>
             </div>
-            
-            <div class="row mt-3">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="fas fa-graduation-cap me-2"></i>Categories
-                        </div>
-                        <div class="card-body">
-                            <div class="category-filter">
-                                <span class="category-btn active" data-category="all">All</span>
-                                <span class="category-btn" data-category="road-signs">Signs</span>
-                                <span class="category-btn" data-category="rules">Rules</span>
-                                <span class="category-btn" data-category="safety">Safety</span>
-                                <span class="category-btn" data-category="hazard">Hazard</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-6">
+              <div class="p-3 border rounded-4 text-center">
+                <div class="fs-3 fw-bold" id="mastery-score">0%</div>
+                <div class="text-muted">Mastery</div>
+              </div>
             </div>
-            
-            <div class="row mt-3">
-                <div class="col-12">
-                    <div class="instructions">
-                        <h4><i class="fas fa-info-circle me-2"></i>How to Use</h4>
-                        <p>1. Select answer by clicking on options</p>
-                        <p>2. Questions are automatically checked</p>
-                        <p>3. Use Next button to continue</p>
-                        <p>4. Add to home screen for easy access</p>
-                        <div class="text-center">
-                            <button class="pwa-install-btn" id="installButton">
-                                <i class="fas fa-plus-circle me-2"></i>Add to Home Screen
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
+
+          <div class="toolbar mt-3">
+            <button class="btn btn-primary" id="start-quiz-btn"><i class="fas fa-play-circle me-2"></i>Start Test</button>
+            <button class="btn btn-outline-primary" id="bookmarked-questions-btn"><i class="fas fa-bookmark me-2"></i>Bookmarks</button>
+            <button class="btn btn-secondary" id="reset-data"><i class="fas fa-rotate me-2"></i>Reset Progress</button>
+          </div>
         </div>
+      </div>
 
-        <!-- Quiz View (Initially Hidden) -->
-        <div id="quiz-view" class="d-none">
-            <!-- Progress Section -->
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5>Q <span id="current-question">1</span>/<span id="total-questions">50</span></h5>
-                <div class="d-flex align-items-center">
-                    <div class="timer-display me-2">
-                        <i class="fas fa-clock me-1"></i><span id="timer">00:00</span>
-                    </div>
-                    <div class="score-display">Score: <span id="score">0</span>/<span id="total-answered">0</span></div>
+      <div class="row g-3">
+        <div class="col-12 col-lg-6">
+          <div class="card h-100">
+            <div class="card-header"><i class="fas fa-cog me-2"></i>Settings</div>
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-6">
+                  <label class="form-label">Questions</label>
+                  <select class="form-select" id="questions-limit">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="50" selected>All</option>
+                  </select>
                 </div>
-            </div>
-            <div class="progress">
-                <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%"></div>
-            </div>
-
-            <!-- Question Card -->
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="row">
-                            <div class="col-6 question-title">Question</div>
-                            <div class="col-6 question-title urdu-text">سوال</div>
-                        </div>
-                    </div>
-                    <div>
-                        <button class="bookmark-btn" id="bookmark-question">
-                            <i class="far fa-bookmark"></i>
-                        </button>
-                        <button class="bookmark-btn" id="mark-review">
-                            <i class="far fa-flag"></i>
-                        </button>
-                    </div>
+                <div class="col-6">
+                  <label class="form-label">Time</label>
+                  <select class="form-select" id="time-limit">
+                    <option value="5">5 Min</option>
+                    <option value="10">10 Min</option>
+                    <option value="20">20 Min</option>
+                    <option value="0" selected>No Limit</option>
+                  </select>
                 </div>
-                <div class="card-body">
-                    <!-- Road Sign Image -->
-                    <div class="sign-container" id="sign-container" style="display: none;">
-                        <img src="" class="road-sign" id="road-sign" alt="Road Sign">
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-6">
-                            <p id="question-en">What does a circular traffic sign with a blue background indicate?</p>
-                        </div>
-                        <div class="col-6 urdu-text">
-                            <p id="question-ur">نیلے پس منظر کے ساتھ ایک گول ٹریفک سائن کیا ظاہر کرتا ہے؟</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Hint Box -->
-                    <div class="hint-box d-none" id="hint-box">
-                        <i class="fas fa-lightbulb me-2"></i>
-                        <span id="hint-text">Remember: Blue circular signs usually indicate mandatory instructions.</span>
-                    </div>
-                    
-                    <!-- Read Aloud Button -->
-                    <div class="text-center">
-                        <button class="read-aloud-btn" id="read-aloud-en">
-                            <i class="fas fa-volume-up me-2"></i>English
-                        </button>
-                        <button class="read-aloud-btn" id="read-aloud-ur">
-                            <i class="fas fa-volume-up me-2"></i>اردو
-                        </button>
-                    </div>
-                    
-                    <!-- Options -->
-                    <div id="options-container">
-                        <!-- Options will be generated here -->
-                    </div>
-
-                    <!-- Feedback -->
-                    <div id="feedback" class="alert alert-info mt-3 d-none">
-                        <i class="fas fa-info-circle me-2"></i><span id="feedback-text"></span>
-                    </div>
-
-                    <!-- Navigation Buttons -->
-                    <div class="d-flex justify-content-between mt-3">
-                        <button id="prev-btn" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left me-1"></i>Previous
-                        </button>
-                        <button id="hint-btn" class="btn btn-info">
-                            <i class="fas fa-lightbulb me-1"></i>Hint
-                        </button>
-                        <button id="next-btn" class="btn btn-success">
-                            Next <i class="fas fa-arrow-right ms-1"></i>
-                        </button>
-                    </div>
+                <div class="col-6">
+                  <label class="form-label">Mode</label>
+                  <select class="form-select" id="mode-select">
+                    <option value="practice" selected>Practice (hints, TTS)</option>
+                    <option value="exam">Exam (no hints, no TTS)</option>
+                  </select>
                 </div>
+                <div class="col-6">
+                  <label class="form-label">Density</label>
+                  <select class="form-select" id="density-select">
+                    <option value="comfortable" selected>Comfortable</option>
+                    <option value="compact">Compact</option>
+                  </select>
+                </div>
+                <div class="col-6">
+                  <label class="form-label">TTS Speed</label>
+                  <input type="range" min="0.7" max="1.3" step="0.1" value="0.9" id="tts-speed" class="form-range" />
+                </div>
+                <div class="col-6">
+                  <label class="form-label">Auto Read</label>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="read-aloud-setting" checked />
+                    <label class="form-check-label" for="read-aloud-setting">Enabled</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <label class="form-label">Hints</label>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="hints-setting" checked />
+                    <label class="form-check-label" for="hints-setting">Show</label>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-
-        <!-- Results View (Initially Hidden) -->
-        <div id="results-view" class="d-none">
-            <div class="results-container">
-                <h2 class="section-title">Test Results</h2>
-                <div class="score-circle" style="--p: 0%">
-                    <div class="score-circle-inner">
-                        <span id="final-score">0</span>/<span id="total-questions-final">50</span>
-                    </div>
-                </div>
-                <h3 id="result-message">Well done!</h3>
-                <p id="result-detail">You scored 0 out of 50 questions correctly.</p>
-                
-                <div class="row mt-3">
-                    <div class="col-4">
-                        <div class="stats-box text-center">
-                            <div class="stats-number" id="result-time">00:00</div>
-                            <div>Time</div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="stats-box text-center">
-                            <div class="stats-number" id="result-percentage">0%</div>
-                            <div>Score</div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="stats-box text-center">
-                            <div class="stats-number" id="result-streak">5</div>
-                            <div>Streak</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="btn-group-responsive mt-4">
-                    <button id="review-answers" class="btn btn-info">
-                        <i class="fas fa-search me-2"></i>Review
-                    </button>
-                    <button id="restart-quiz" class="btn btn-primary">
-                        <i class="fas fa-redo me-2"></i>Retry
-                    </button>
-                    <button id="back-to-dashboard" class="btn btn-secondary">
-                        <i class="fas fa-home me-2"></i>Home
-                    </button>
-                </div>
+        <div class="col-12 col-lg-6">
+          <div class="card h-100">
+            <div class="card-header"><i class="fas fa-graduation-cap me-2"></i>Categories</div>
+            <div class="card-body">
+              <div class="d-flex flex-wrap gap-2 justify-content-center" id="category-filter"></div>
+              <div class="mt-3 small text-muted text-center">Tip: Press <kbd>A</kbd>/<kbd>B</kbd>/<kbd>C</kbd>/<kbd>D</kbd> to answer; <kbd>N</kbd>/<kbd>P</kbd> for next/prev; <kbd>H</kbd> to toggle hint.</div>
             </div>
+          </div>
         </div>
+      </div>
+
+      <div class="card mt-3">
+        <div class="card-header"><i class="fas fa-info-circle me-2"></i>How to Use</div>
+        <div class="card-body">
+          <ol class="mb-3">
+            <li>Click an answer to check instantly.</li>
+            <li>Use the sticky bottom navigation on mobile.</li>
+            <li>Add to Home Screen for quick access.</li>
+          </ol>
+          <button class="btn btn-outline-primary" id="installButton"><i class="fas fa-plus-circle me-2"></i>Add to Home Screen</button>
+        </div>
+      </div>
     </div>
 
-    <!-- Explanation Modal -->
-    <div class="modal fade" id="explanationModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Explanation</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <h6>English</h6>
-                            <p id="explanation-en"></p>
-                        </div>
-                        <div class="col-6 urdu-text">
-                            <h6>اردو</h6>
-                            <p id="explanation-ur"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
+    <!-- QUIZ VIEW -->
+    <div id="quiz-view" class="hidden">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <div class="fw-bold">Q <span id="current-question">1</span>/<span id="total-questions">50</span></div>
+        <div class="d-flex align-items-center gap-2">
+          <div class="timer-display"><i class="fas fa-clock me-1"></i><span id="timer">00:00</span></div>
+          <div class="score-display">Score: <span id="score">0</span>/<span id="total-answered">0</span></div>
         </div>
-    </div>
+      </div>
+      <div class="progress mb-3"><div id="progress-bar" class="progress-bar" style="width:0%"></div></div>
 
-    <!-- Review Modal -->
-    <div class="modal fade" id="reviewModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Review Answers</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="review-content">
-                        <!-- Review content will be generated here -->
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
+      <div class="card mb-5">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <div class="bilingual">
+            <div class="fw-semibold">Question</div>
+            <div class="fw-semibold urdu-text">سوال</div>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <button class="btn btn-sm btn-outline-primary" id="quick-jump"><i class="fas fa-th me-1"></i>Jump</button>
+            <button class="btn btn-sm btn-outline-primary" id="bookmark-question" title="Bookmark"><i class="far fa-bookmark"></i></button>
+          </div>
         </div>
+        <div class="card-body">
+          <div id="sign-container" class="text-center mb-3 hidden"><img id="road-sign" class="img-fluid rounded-3" alt="Road Sign" /></div>
+
+          <div class="bilingual mb-2">
+            <p id="question-en" class="m-0 fw-semibold"></p>
+            <p id="question-ur" class="m-0 fw-semibold urdu-text"></p>
+          </div>
+
+          <div id="hint-box" class="alert alert-info py-2 px-3 hidden"><i class="fas fa-lightbulb me-2"></i><span id="hint-text"></span></div>
+
+          <div class="d-flex justify-content-center gap-2 my-2">
+            <button class="btn btn-info btn-sm" id="read-en"><i class="fas fa-volume-up me-1"></i>English</button>
+            <button class="btn btn-info btn-sm" id="read-ur"><i class="fas fa-volume-up me-1"></i>اردو</button>
+            <button class="btn btn-secondary btn-sm" id="stop-tts"><i class="fas fa-stop me-1"></i>Stop</button>
+          </div>
+
+          <div id="options-container" class="options-grid"></div>
+
+          <div id="feedback" class="alert mt-3 hidden"><span id="feedback-text"></span></div>
+        </div>
+
+        <!-- Sticky bottom controls -->
+        <div class="bottom-nav rounded-top-4">
+          <button id="prev-btn" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></button>
+          <button id="hint-btn" class="btn btn-outline-primary"><i class="fas fa-lightbulb"></i></button>
+          <button id="next-btn" class="btn btn-success"><i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
     </div>
 
-    <!-- Floating buttons -->
-    <div class="floating-buttons">
-        <button class="floating-btn floating-btn-primary" id="quick-settings" title="Quick Settings">
-            <i class="fas fa-cog"></i>
-        </button>
-        <button class="floating-btn floating-btn-secondary" id="quick-home" title="Back to Home">
-            <i class="fas fa-home"></i>
-        </button>
+    <!-- RESULTS VIEW -->
+    <div id="results-view" class="hidden">
+      <div class="card">
+        <div class="card-header">Test Results</div>
+        <div class="card-body text-center">
+          <div class="display-6 fw-bold"><span id="final-score">0</span>/<span id="total-questions-final">50</span></div>
+          <p id="result-message" class="fw-bold mt-2">Well done!</p>
+          <p id="result-detail" class="text-muted">You scored 0 out of 50 questions correctly.</p>
+          <div class="row g-3 mt-1">
+            <div class="col-6"><div class="p-3 border rounded-4"><div class="fs-4 fw-bold" id="result-time">00:00</div><div class="text-muted">Time</div></div></div>
+            <div class="col-6"><div class="p-3 border rounded-4"><div class="fs-4 fw-bold" id="result-percentage">0%</div><div class="text-muted">Score</div></div></div>
+          </div>
+          <div class="toolbar mt-3">
+            <button id="review-answers" class="btn btn-info"><i class="fas fa-search me-2"></i>Review</button>
+            <button id="restart-quiz" class="btn btn-primary"><i class="fas fa-redo me-2"></i>Retry</button>
+            <button id="back-to-dashboard" class="btn btn-secondary"><i class="fas fa-home me-2"></i>Home</button>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Questions data (would normally be loaded from an external JSON file)
-        const questions = [
-            {
-                id: 1,
-                question: "What does this sign mean?",
-                options: [
-                    "Mandatory instruction",
-                    "Warning of a hazard",
-                    "Route for pedestrians only",
-                    "Prohibition ending"
-                ],
-                correctAnswer: 0,
-                explanation: "Circular signs with blue backgrounds give mandatory instructions that must be followed.",
-                explanationUr: "نیلے پس منظر کے ساتھ گول نشانات لازمی ہدایات دیتے ہیں جن پر عمل کرنا ضروری ہے۔",
-                category: "road-signs",
-                hint: "Blue circular signs usually indicate mandatory instructions.",
-                image: "https://via.placeholder.com/300x300/3498db/ffffff?text=Blue+Circle"
-            },
-            {
-                id: 2,
-                question: "When may you overtake on the left?",
-                options: [
-                    "When the driver in front signals turning right",
-                    "In slow-moving traffic queues",
-                    "When approaching a motorway slip road",
-                    "When the car in front is slowing down"
-                ],
-                correctAnswer: 1,
-                explanation: "You may overtake on the left in slow-moving traffic when queues on your right are moving more slowly.",
-                explanationUr: "آپ بائیں طرف اس وقت اوورٹیک کر سکتے ہیں جب آہستہ چلنے والی ٹریفک میں آپ کے دائیں طرف قطاریں زیادہ آہستہ چل رہی ہوں۔",
-                category: "rules",
-                hint: "Overtaking on the left is only allowed in specific situations like slow-moving traffic."
-            },
-            {
-                id: 3,
-                question: "What does a red traffic light mean?",
-                options: [
-                    "Stop and wait behind the stop line",
-                    "Proceed with caution",
-                    "Stop only if there is traffic",
-                    "Slow down and prepare to stop"
-                ],
-                correctAnswer: 0,
-                explanation: "A red light means you must stop and wait behind the stop line until the light changes to green.",
-                explanationUr: "سرخ لائٹ کا مطلب ہے کہ آپ کو اسٹاپ لائن کے پیچھے اس وقت تک رکنا اور انتظار کرنا ہے جب تک کہ لائٹ سبز میں نہ بدل جائے۔",
-                category: "rules",
-                hint: "Red means stop in all traffic situations."
-            },
-            {
-                id: 4,
-                question: "What is the national speed limit for cars on a single carriageway?",
-                options: [
-                    "30 mph",
-                    "50 mph",
-                    "60 mph",
-                    "70 mph"
-                ],
-                correctAnswer: 2,
-                explanation: "The national speed limit for cars on a single carriageway is 60 mph.",
-                explanationUr: "سنگل کیریج وے پر کاروں کے لیے قومی سپیڈ Limit 60 mph ہے۔",
-                category: "rules",
-                hint: "The national speed limit is different for single and dual carriageways."
-            },
-            {
-                id: 5,
-                question: "What should you do when approaching a zebra crossing?",
-                options: [
-                    "Speed up to clear the crossing quickly",
-                    "Slow down and be prepared to stop",
-                    "Sound your horn to alert pedestrians",
-                    "Maintain your speed if no one is crossing"
-                ],
-                correctAnswer: 1,
-                explanation: "You should slow down and be prepared to stop when approaching a zebra crossing.",
-                explanationUr: "زیبرا کراسنگ کے قریب پہنچنے پر آپ کو آہستہ کرنا چاہیے اور رکنے کے لیے تیار رہنا چاہیے۔",
-                category: "safety",
-                hint: "Zebra crossings require drivers to be ready to stop for pedestrians."
-            },
-            // Additional questions would be added here
-            // For brevity, I'm adding a few more and then we can duplicate to simulate 50
-            {
-                id: 6,
-                question: "What does this sign mean?",
-                options: [
-                    "No overtaking",
-                    "No entry for vehicles",
-                    "No stopping",
-                    "No motor vehicles"
-                ],
-                correctAnswer: 0,
-                explanation: "This sign indicates that overtaking is not allowed.",
-                explanationUr: "یہ نشان ظاہر کرتا ہے کہ اوورٹیکنگ کی اجازت نہیں ہے۔",
-                category: "road-signs",
-                hint: "Circular signs with red borders indicate prohibitions.",
-                image: "https://via.placeholder.com/300x300/e74c3c/ffffff?text=No+Overtaking"
-            },
-            {
-                id: 7,
-                question: "What should you do when you see this sign?",
-                options: [
-                    "Stop only if you see children",
-                    "Slow down and be prepared for children crossing",
-                    "Continue at same speed",
-                    "Sound your horn to warn children"
-                ],
-                correctAnswer: 1,
-                explanation: "This sign warns of children likely to be crossing the road. You should slow down and be prepared to stop.",
-                explanationUr: "یہ نشان بچوں کے سڑک پار کرنے کی可能性 سے خبردار کرتا ہے۔ آپ کو آہستہ کرنا چاہیے اور رکنے کے لیے تیار رہنا چاہیے۔",
-                category: "hazard",
-                hint: "Signs with children indicate areas where they might suddenly appear.",
-                image: "https://via.placeholder.com/300x300/f39c12/ffffff?text=Children+Crossing"
-            }
-        ];
+  <!-- REVIEW MODAL -->
+  <div class="modal fade" id="reviewModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Review Answers</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body"><div id="review-content"></div></div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
+      </div>
+    </div>
+  </div>
 
-        // Duplicate questions to reach 50 (in a real app, these would be unique)
-        for (let i = 8; i <= 50; i++) {
-            const original = questions[i % 7];
-            questions.push({
-                ...original,
-                id: i
-            });
-        }
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // ========================= DATA (short demo set, same structure) =========================
+    const questions = [
+      { id:1, question:"What does this sign mean?", options:["Mandatory instruction","Warning of a hazard","Route for pedestrians only","Prohibition ending"], correctAnswer:0, explanation:"Circular signs with blue backgrounds give mandatory instructions that must be followed.", explanationUr:"نیلے پس منظر کے ساتھ گول نشانات لازمی ہدایات دیتے ہیں جن پر عمل کرنا ضروری ہے۔", category:"road-signs", hint:"Blue circular signs usually indicate mandatory instructions.", image:"https://via.placeholder.com/300x300/3498db/ffffff?text=Blue+Circle" },
+      { id:2, question:"When may you overtake on the left?", options:["When the driver in front signals turning right","In slow-moving traffic queues","When approaching a motorway slip road","When the car in front is slowing down"], correctAnswer:1, explanation:"You may overtake on the left in slow-moving traffic when queues on your right are moving more slowly.", explanationUr:"آپ بائیں طرف اس وقت اوورٹیک کر سکتے ہیں جب آہستہ چلنے والی ٹریفک میں آپ کے دائیں طرف قطاریں زیادہ آہستہ چل رہی ہوں۔", category:"rules", hint:"Overtaking on the left is only allowed in specific situations like slow-moving traffic." },
+      { id:3, question:"What does a red traffic light mean?", options:["Stop and wait behind the stop line","Proceed with caution","Stop only if there is traffic","Slow down and prepare to stop"], correctAnswer:0, explanation:"A red light means you must stop and wait behind the stop line until the light changes to green.", explanationUr:"سرخ لائٹ کا مطلب ہے کہ آپ کو اسٹاپ لائن کے پیچھے اس وقت تک رکنا اور انتظار کرنا ہے جب تک کہ لائٹ سبز میں نہ بدل جائے۔", category:"rules", hint:"Red means stop in all traffic situations." },
+      { id:4, question:"What is the national speed limit for cars on a single carriageway?", options:["30 mph","50 mph","60 mph","70 mph"], correctAnswer:2, explanation:"The national speed limit for cars on a single carriageway is 60 mph.", explanationUr:"سنگل کیریج وے پر کاروں کے لیے قومی سپیڈ Limit 60 mph ہے۔", category:"rules", hint:"The national speed limit is different for single and dual carriageways." },
+      { id:5, question:"What should you do when approaching a zebra crossing?", options:["Speed up to clear the crossing quickly","Slow down and be prepared to stop","Sound your horn to alert pedestrians","Maintain your speed if no one is crossing"], correctAnswer:1, explanation:"You should slow down and be prepared to stop when approaching a zebra crossing.", explanationUr:"زیبرا کراسنگ کے قریب پہنچنے پر آپ کو آہستہ کرنا چاہیے اور رکنے کے لیے تیار رہنا چاہیے۔", category:"safety", hint:"Zebra crossings require drivers to be ready to stop for pedestrians." },
+      { id:6, question:"What does this sign mean?", options:["No overtaking","No entry for vehicles","No stopping","No motor vehicles"], correctAnswer:0, explanation:"This sign indicates that overtaking is not allowed.", explanationUr:"یہ نشان ظاہر کرتا ہے کہ اوورٹیکنگ کی اجازت نہیں ہے۔", category:"road-signs", hint:"Circular signs with red borders indicate prohibitions.", image:"https://via.placeholder.com/300x300/e74c3c/ffffff?text=No+Overtaking" },
+      { id:7, question:"What should you do when you see this sign?", options:["Stop only if you see children","Slow down and be prepared for children crossing","Continue at same speed","Sound your horn to warn children"], correctAnswer:1, explanation:"This sign warns of children likely to be crossing the road. You should slow down and be prepared to stop.", explanationUr:"یہ نشان بچوں کے سڑک پار کرنے کی امکان سے خبردار کرتا ہے۔ آپ کو آہستہ کرنا چاہیے اور رکنے کے لیے تیار رہنا چاہیے۔", category:"hazard", hint:"Signs with children indicate areas where they might suddenly appear.", image:"https://via.placeholder.com/300x300/f39c12/ffffff?text=Children+Crossing" },
+    ];
 
-        // Urdu translations for questions and options
-        const urduTranslations = {
-            questions: [
-                "اس علامت کا کیا مطلب ہے؟",
-                "آپ بائیں طرف کب اوورٹیک کر سکتے ہیں؟",
-                "سرخ ٹریفک لائٹ کا کیا مطلب ہے؟",
-                "سنگل کیریج وے پر کاروں کے لیے قومی سپیڈ Limit کیا ہے؟",
-                "زیبرا کراسنگ پر پہنچنے پر آپ کو کیا کرنا چاہیے؟",
-                "اس علامت کا کیا مطلب ہے؟",
-                "جب آپ یہ علامت دیکھیں تو آپ کو کیا کرنا چاہیے؟"
-            ],
-            options: [
-                ["لازمی ہدایت", "خطرے کی وارننگ", "صرف پیدل چلنے والوں کے لیے راستہ", "پابندی ختم ہونا"],
-                ["جب سامنے والا ڈرائیور دائیں مڑنے کا اشارہ کرتا ہے", "سست رفتار ٹریفک کے قطاروں میں", "جب موٹر وے سلپ روڈ کے قریب پہنچتے ہیں", "جب سامنے والی کار آہستہ ہو رہی ہو"],
-                ["Stop لائن کے پیچھے رکیں اور انتظار کریں", "احتیاط کے ساتھ آگے بڑھیں", "صرف اس صورت میں رکیں اگر ٹریفک ہے", "آہستہ کریں اور رکنے کے لیے تیار ہوں"],
-                ["30 mph", "50 mph", "60 mph", "70 mph"],
-                ["کراسنگ کو جلدی سے صاف کرنے کے لیے تیز کریں", "آہستہ کریں اور رکنے کے لیے تیار رہیں", "پیدل چلنے والوں کو خبردار کرنے کے لیے اپنے ہارن کو بجائیں", "اگر کوئی نہیں پار کر رہا ہے تو اپنی رفتار برقرار رکھیں"],
-                ["No overtaking", "No entry for vehicles", "No stopping", "No motor vehicles"],
-                ["صرف اس صورت میں رکیں اگر آپ بچوں کو دیکھیں", "آہستہ کریں اور بچوں کے پار کرنے کے لیے تیار رہیں", "ایک ہی رفتار سے جاری رکھیں", "بچوں کو خبردار کرنے کے لیے اپنا ہارن بجائیں"]
-            ],
-            hints: [
-                "نیلے گول نشانات عام طور پر لازمی ہدایات کی نشاندہی کرتے ہیں۔",
-                "بائیں طرف اوورٹیک کرنا صرف مخصوص حالات میں allowed ہے جیسے آہستہ چلنے والی ٹریفک۔",
-                "سرخ کا مطلب ہر ٹریفک صورتحال میں رکنا ہے۔",
-                "قومی سپیڈ Limit سنگل اور dual carriageways کے لیے مختلف ہے۔",
-                "زیبرا کراسنگ کے لیے ڈرائیوروں کو پیدل چلنے والوں کے لیے رکنے کے لیے تیار رہنا چاہیے۔",
-                "سرخ border کے ساتھ سرکلر نشانات پابندیوں کی نشاندہی کرتے ہیں۔",
-                "بچوں والے signs ایسے areas کی نشاندہی کرتے ہیں جہاں وہ suddenly appear ہو سکتے ہیں۔"
-            ]
-        };
+    // Duplicate to ~50 for demo
+    for (let i=8;i<=50;i++){ const o = questions[(i-1)%7]; questions.push({ ...o, id:i }); }
 
-        // Duplicate translations to match the 50 questions
-        for (let i = 7; i < 50; i++) {
-            const index = i % 7;
-            urduTranslations.questions.push(urduTranslations.questions[index]);
-            urduTranslations.options.push([...urduTranslations.options[index]]);
-            urduTranslations.hints.push(urduTranslations.hints[index]);
-        }
+    const urduTranslations = {
+      questions:[
+        "اس علامت کا کیا مطلب ہے؟",
+        "آپ بائیں طرف کب اوورٹیک کر سکتے ہیں؟",
+        "سرخ ٹریفک لائٹ کا کیا مطلب ہے؟",
+        "سنگل کیریج وے پر کاروں کے لیے قومی سپیڈ Limit کیا ہے؟",
+        "زیبرا کراسنگ پر پہنچنے پر آپ کو کیا کرنا چاہیے؟",
+        "اس علامت کا کیا مطلب ہے؟",
+        "جب آپ یہ علامت دیکھیں تو آپ کو کیا کرنا چاہیے؟",
+      ],
+      options:[
+        ["لازمی ہدایت","خطرے کی وارننگ","صرف پیدل چلنے والوں کے لیے راستہ","پابندی ختم ہونا"],
+        ["جب سامنے والا ڈرائیور دائیں مڑنے کا اشارہ کرتا ہے","سست رفتار ٹریفک کے قطاروں میں","جب موٹر وے سلپ روڈ کے قریب پہنچتے ہیں","جب سامنے والی کار آہستہ ہو رہی ہو"],
+        ["Stop لائن کے پیچھے رکیں اور انتظار کریں","احتیاط کے ساتھ آگے بڑھیں","صرف اس صورت میں رکیں اگر ٹریفک ہے","آہستہ کریں اور رکنے کے لیے تیار ہوں"],
+        ["30 mph","50 mph","60 mph","70 mph"],
+        ["کراسنگ کو جلدی سے صاف کرنے کے لیے تیز کریں","آہستہ کریں اور رکنے کے لیے تیار رہیں","پیدل چلنے والوں کو خبردار کرنے کے لیے اپنے ہارن کو بجائیں","اگر کوئی نہیں پار کر رہا ہے تو اپنی رفتار برقرار رکھیں"],
+        ["No overtaking","No entry for vehicles","No stopping","No motor vehicles"],
+        ["صرف اس صورت میں رکیں اگر آپ بچوں کو دیکھیں","آہستہ کریں اور بچوں کے پار کرنے کے لیے تیار رہیں","ایک ہی رفتار سے جاری رکھیں","بچوں کو خبردار کرنے کے لیے اپنا ہارن بجائیں"],
+      ],
+      hints:[
+        "نیلے گول نشانات عام طور پر لازمی ہدایات کی نشاندہی کرتے ہیں۔",
+        "بائیں طرف اوورٹیک کرنا صرف مخصوص حالات میں allowed ہے جیسے آہستہ چلنے والی ٹریفک۔",
+        "سرخ کا مطلب ہر ٹریفک صورتحال میں رکنا ہے۔",
+        "قومی سپیڈ Limit سنگل اور dual carriageways کے لیے مختلف ہے۔",
+        "زیبرا کراسنگ کے لیے ڈرائیوروں کو پیدل چلنے والوں کے لیے رکنے کے لیے تیار رہنا چاہیے۔",
+        "سرخ border کے ساتھ سرکلر نشانات پابندیوں کی نشاندہی کرتے ہیں۔",
+        "بچوں والے signs ایسے areas کی نشاندہی کرتے ہیں جہاں وہ sudden ظاہر ہو سکتے ہیں۔",
+      ],
+    };
+    for(let i=7;i<50;i++){const n=i%7; urduTranslations.questions.push(urduTranslations.questions[n]); urduTranslations.options.push([...urduTranslations.options[n]]); urduTranslations.hints.push(urduTranslations.hints[n]);}
 
-        // App state
-        let currentQuestion = 0;
-        let score = 0;
-        let totalAnswered = 0;
-        let selectedOption = null;
-        let currentCategory = "all";
-        let speechSynthesis = window.speechSynthesis;
-        let timerInterval = null;
-        let timeRemaining = 0;
-        let startTime = 0;
-        let bookmarkedQuestions = [];
-        let answeredQuestions = {};
-        let quizQuestions = [];
-        let userAnswers = {};
-        let markedForReview = [];
-        let practiceMode = false;
-        let learningStreak = 5;
+    // ========================= STATE =========================
+    let currentQuestion=0, score=0, totalAnswered=0, selectedOption=null;
+    let currentCategory='all', quizQuestions=[], userAnswers={};
+    let timerInterval=null, timeRemaining=0, startTime=0;
+    let bookmarkedQuestions=[], answeredQuestions={};
 
-        // DOM Elements
-        const dashboardView = document.getElementById('dashboard-view');
-        const quizView = document.getElementById('quiz-view');
-        const resultsView = document.getElementById('results-view');
-        
-        const questionEnEl = document.getElementById('question-en');
-        const questionUrEl = document.getElementById('question-ur');
-        const optionsContainer = document.getElementById('options-container');
-        const currentQuestionEl = document.getElementById('current-question');
-        const totalQuestionsEl = document.getElementById('total-questions');
-        const scoreEl = document.getElementById('score');
-        const totalAnsweredEl = document.getElementById('total-answered');
-        const progressBar = document.getElementById('progress-bar');
-        const nextBtn = document.getElementById('next-btn');
-        const prevBtn = document.getElementById('prev-btn');
-        const feedbackEl = document.getElementById('feedback');
-        const feedbackTextEl = document.getElementById('feedback-text');
-        const readAloudEnBtn = document.getElementById('read-aloud-en');
-        const readAloudUrBtn = document.getElementById('read-aloud-ur');
-        const hintBtn = document.getElementById('hint-btn');
-        const hintBox = document.getElementById('hint-box');
-        const hintText = document.getElementById('hint-text');
-        const bookmarkBtn = document.getElementById('bookmark-question');
-        const markReviewBtn = document.getElementById('mark-review');
-        const timerEl = document.getElementById('timer');
-        const themeToggle = document.getElementById('theme-toggle');
-        const signContainer = document.getElementById('sign-container');
-        const roadSign = document.getElementById('road-sign');
-        
-        // Results view elements
-        const finalScoreEl = document.getElementById('final-score');
-        const totalQuestionsFinalEl = document.getElementById('total-questions-final');
-        const resultMessageEl = document.getElementById('result-message');
-        const resultDetailEl = document.getElementById('result-detail');
-        const resultTimeEl = document.getElementById('result-time');
-        const resultPercentageEl = document.getElementById('result-percentage');
-        const resultStreakEl = document.getElementById('result-streak');
-        const restartQuizBtn = document.getElementById('restart-quiz');
-        const reviewAnswersBtn = document.getElementById('review-answers');
-        const backToDashboardBtn = document.getElementById('back-to-dashboard');
-        
-        // Dashboard elements
-        const startQuizBtn = document.getElementById('start-quiz-btn');
-        const bookmarkedQuestionsBtn = document.getElementById('bookmarked-questions-btn');
-        const practiceModeBtn = document.getElementById('practice-mode-btn');
-        const questionsLimit = document.getElementById('questions-limit');
-        const timeLimit = document.getElementById('time-limit');
-        const readAloudSetting = document.getElementById('read-aloud-setting');
-        const hintsSetting = document.getElementById('hints-setting');
-        const instantFeedbackSetting = document.getElementById('instant-feedback');
-        const totalQuestionsStats = document.getElementById('total-questions-stats');
-        const masteryScore = document.getElementById('mastery-score');
-        const bookmarksCount = document.getElementById('bookmarks-count');
-        
-        // Floating buttons
-        const quickSettingsBtn = document.getElementById('quick-settings');
-        const quickHomeBtn = document.getElementById('quick-home');
+    // DOM refs
+    const dashboardView = document.getElementById('dashboard-view');
+    const quizView = document.getElementById('quiz-view');
+    const resultsView = document.getElementById('results-view');
+    const questionEnEl = document.getElementById('question-en');
+    const questionUrEl = document.getElementById('question-ur');
+    const optionsContainer = document.getElementById('options-container');
+    const currentQuestionEl = document.getElementById('current-question');
+    const totalQuestionsEl = document.getElementById('total-questions');
+    const scoreEl = document.getElementById('score');
+    const totalAnsweredEl = document.getElementById('total-answered');
+    const progressBar = document.getElementById('progress-bar');
+    const nextBtn = document.getElementById('next-btn');
+    const prevBtn = document.getElementById('prev-btn');
+    const feedbackEl = document.getElementById('feedback');
+    const feedbackTextEl = document.getElementById('feedback-text');
+    const hintBtn = document.getElementById('hint-btn');
+    const hintBox = document.getElementById('hint-box');
+    const hintText = document.getElementById('hint-text');
+    const bookmarkBtn = document.getElementById('bookmark-question');
+    const timerEl = document.getElementById('timer');
+    const themeToggle = document.getElementById('theme-toggle');
+    const signContainer = document.getElementById('sign-container');
+    const roadSign = document.getElementById('road-sign');
+    const totalQuestionsStats = document.getElementById('total-questions-stats');
+    const masteryScore = document.getElementById('mastery-score');
+    const restartQuizBtn = document.getElementById('restart-quiz');
+    const reviewAnswersBtn = document.getElementById('review-answers');
+    const backToDashboardBtn = document.getElementById('back-to-dashboard');
+    const questionsLimit = document.getElementById('questions-limit');
+    const timeLimit = document.getElementById('time-limit');
+    const readAloudSetting = document.getElementById('read-aloud-setting');
+    const hintsSetting = document.getElementById('hints-setting');
+    const modeSelect = document.getElementById('mode-select');
+    const densitySelect = document.getElementById('density-select');
+    const ttsSpeed = document.getElementById('tts-speed');
 
-        // Initialize the app
-        function initApp() {
-            loadUserData();
-            updateDashboardStats();
-            setupEventListeners();
-            applyTheme();
-        }
+    const startQuizBtn = document.getElementById('start-quiz-btn');
+    const bookmarkedQuestionsBtn = document.getElementById('bookmarked-questions-btn');
+    const installBtn = document.getElementById('installButton');
+    const resetBtn = document.getElementById('reset-data');
 
-        function setupEventListeners() {
-            // Theme toggle
-            themeToggle.addEventListener('change', toggleTheme);
-            
-            // Dashboard buttons
-            startQuizBtn.addEventListener('click', () => startQuiz(false));
-            bookmarkedQuestionsBtn.addEventListener('click', showBookmarkedQuestions);
-            practiceModeBtn.addEventListener('click', () => startQuiz(true));
-            
-            // Quiz buttons
-            nextBtn.addEventListener('click', nextQuestion);
-            prevBtn.addEventListener('click', prevQuestion);
-            readAloudEnBtn.addEventListener('click', () => readQuestionAloud('en'));
-            readAloudUrBtn.addEventListener('click', () => readQuestionAloud('ur'));
-            hintBtn.addEventListener('click', toggleHint);
-            bookmarkBtn.addEventListener('click', toggleBookmark);
-            markReviewBtn.addEventListener('click', toggleMarkReview);
-            
-            // Results buttons
-            restartQuizBtn.addEventListener('click', restartQuiz);
-            reviewAnswersBtn.addEventListener('click', showReview);
-            backToDashboardBtn.addEventListener('click', showDashboard);
-            
-            // Category filters
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const category = e.target.getAttribute('data-category');
-                    setCategory(category);
-                });
-            });
-            
-            // PWA install button
-            document.getElementById('installButton').addEventListener('click', showPWAInstructions);
-            
-            // Floating buttons
-            quickSettingsBtn.addEventListener('click', showQuickSettings);
-            quickHomeBtn.addEventListener('click', showDashboard);
-        }
+    // Category chips
+    const categoryFilter = document.getElementById('category-filter');
+    const categories = [ {id:'all',label:'All'}, {id:'road-signs',label:'Signs'}, {id:'rules',label:'Rules'}, {id:'safety',label:'Safety'}, {id:'hazard',label:'Hazard'} ];
+    categories.forEach(c=>{
+      const el = document.createElement('button');
+      el.className = 'chip'; el.dataset.category=c.id; el.textContent=c.label; if(c.id==='all') el.classList.add('active');
+      el.addEventListener('click',()=>setCategory(c.id));
+      categoryFilter.appendChild(el);
+    });
 
-        function loadUserData() {
-            // Load bookmarked questions
-            const savedBookmarks = localStorage.getItem('dvsaBookmarks');
-            if (savedBookmarks) {
-                bookmarkedQuestions = JSON.parse(savedBookmarks);
-            }
-            
-            // Load answered questions
-            const savedAnswers = localStorage.getItem('dvsaAnswers');
-            if (savedAnswers) {
-                answeredQuestions = JSON.parse(savedAnswers);
-            }
-            
-            // Load marked for review
-            const savedMarked = localStorage.getItem('dvsaMarked');
-            if (savedMarked) {
-                markedForReview = JSON.parse(savedMarked);
-            }
-            
-            // Load streak
-            const savedStreak = localStorage.getItem('dvsaStreak');
-            if (savedStreak) {
-                learningStreak = parseInt(savedStreak);
-            }
-            
-            // Load theme preference
-            const savedTheme = localStorage.getItem('dvsaTheme');
-            if (savedTheme) {
-                document.documentElement.setAttribute('data-theme', savedTheme);
-                themeToggle.checked = savedTheme === 'dark';
-            }
-        }
+    // ========================= INIT =========================
+    document.addEventListener('DOMContentLoaded', () => { loadUserData(); updateDashboardStats(); applyTheme(); attachEvents(); });
 
-        function saveUserData() {
-            localStorage.setItem('dvsaBookmarks', JSON.stringify(bookmarkedQuestions));
-            localStorage.setItem('dvsaAnswers', JSON.stringify(answeredQuestions));
-            localStorage.setItem('dvsaMarked', JSON.stringify(markedForReview));
-            localStorage.setItem('dvsaStreak', learningStreak.toString());
-        }
+    function attachEvents(){
+      themeToggle.addEventListener('change', toggleTheme);
+      startQuizBtn.addEventListener('click', startQuiz);
+      bookmarkedQuestionsBtn.addEventListener('click', showBookmarkedQuestions);
+      nextBtn.addEventListener('click', nextQuestion);
+      prevBtn.addEventListener('click', prevQuestion);
+      hintBtn.addEventListener('click', toggleHint);
+      bookmarkBtn.addEventListener('click', toggleBookmark);
+      installBtn.addEventListener('click', showPWAInstructions);
+      resetBtn.addEventListener('click', resetProgress);
 
-        function updateDashboardStats() {
-            const totalQuestions = questions.length;
-            totalQuestionsStats.textContent = totalQuestions;
-            bookmarksCount.textContent = bookmarkedQuestions.length;
-            
-            // Calculate mastery score based on correctly answered questions
-            const correctCount = Object.values(answeredQuestions).filter(a => a.correct).length;
-            const mastery = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
-            masteryScore.textContent = `${mastery}%`;
-        }
+      // Keyboard shortcuts
+      window.addEventListener('keydown', (e)=>{
+        const map = { 'a':0, 'b':1, 'c':2, 'd':3 };
+        if(['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)) return;
+        if(e.key.toLowerCase() in map){ selectOption(map[e.key.toLowerCase()]); }
+        if(e.key.toLowerCase()==='n') nextQuestion();
+        if(e.key.toLowerCase()==='p') prevQuestion();
+        if(e.key.toLowerCase()==='h') toggleHint();
+      });
 
-        function startQuiz(isPractice) {
-            practiceMode = isPractice;
-            
-            // Get selected category
-            const category = currentCategory === 'all' ? null : currentCategory;
-            
-            // Filter questions by category if needed
-            quizQuestions = category ? questions.filter(q => q.category === category) : [...questions];
-            
-            // Shuffle questions
-            quizQuestions = shuffleArray(quizQuestions);
-            
-            // Apply question limit
-            const limit = parseInt(questionsLimit.value);
-            if (limit > 0 && limit < quizQuestions.length) {
-                quizQuestions = quizQuestions.slice(0, limit);
-            }
-            
-            // Reset quiz state
-            currentQuestion = 0;
-            score = 0;
-            totalAnswered = 0;
-            selectedOption = null;
-            userAnswers = {};
-            
-            // Set up timer
-            const timeLimitMinutes = parseInt(timeLimit.value);
-            timeRemaining = timeLimitMinutes * 60;
-            startTime = Date.now();
-            
-            if (timeLimitMinutes > 0 && !practiceMode) {
-                startTimer();
-            } else {
-                timerEl.textContent = practiceMode ? 'Practice' : 'No Limit';
-            }
-            
-            // Update UI
-            totalQuestionsEl.textContent = quizQuestions.length;
-            totalQuestionsFinalEl.textContent = quizQuestions.length;
-            scoreEl.textContent = score;
-            totalAnsweredEl.textContent = totalAnswered;
-            
-            // Show quiz view
-            dashboardView.classList.add('d-none');
-            quizView.classList.remove('d-none');
-            resultsView.classList.add('d-none');
-            
-            // Show first question
-            showQuestion();
-        }
+      // Event delegation for options (performance)
+      optionsContainer.addEventListener('click', (e)=>{
+        const opt = e.target.closest('[data-index]');
+        if(!opt) return; selectOption(+opt.dataset.index);
+      });
 
-        function showQuestion() {
-            if (currentQuestion >= quizQuestions.length) {
-                finishQuiz();
-                return;
-            }
-            
-            const question = quizQuestions[currentQuestion];
-            questionEnEl.textContent = question.question;
-            questionUrEl.textContent = urduTranslations.questions[question.id - 1];
-            
-            // Show or hide road sign image
-            if (question.image) {
-                signContainer.style.display = 'block';
-                roadSign.src = question.image;
-                roadSign.alt = question.question;
-            } else {
-                signContainer.style.display = 'none';
-            }
-            
-            currentQuestionEl.textContent = currentQuestion + 1;
-            
-            // Clear previous options
-            optionsContainer.innerHTML = '';
-            
-            // Create option buttons
-            question.options.forEach((option, index) => {
-                const optionRow = document.createElement('div');
-                optionRow.className = 'row mb-2';
-                
-                optionRow.innerHTML = `
-                    <div class="col-6">
-                        <button class="option-btn btn btn-light w-100" data-index="${index}">
-                            <span class="option-letter">${String.fromCharCode(65 + index)}</span> 
-                            <span class="option-text">${option}</span>
-                        </button>
-                    </div>
-                    <div class="col-6">
-                        <button class="option-btn btn btn-light w-100 urdu-text" data-index="${index}">
-                            <span class="option-letter">${String.fromCharCode(65 + index)}</span> 
-                            <span class="option-text">${urduTranslations.options[question.id - 1][index]}</span>
-                        </button>
-                    </div>
-                `;
-                
-                optionsContainer.appendChild(optionRow);
-            });
-            
-            // Add event listeners to option buttons
-            const optionButtons = document.querySelectorAll('.option-btn');
-            optionButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // Remove selected class from all buttons
-                    optionButtons.forEach(btn => {
-                        btn.classList.remove('btn-primary', 'btn-secondary');
-                        btn.classList.add('btn-light');
-                    });
-                    
-                    // Add selected class to clicked button
-                    button.classList.remove('btn-light');
-                    button.classList.add('btn-primary');
-                    
-                    // Select the corresponding button in the other language
-                    const index = button.getAttribute('data-index');
-                    document.querySelectorAll(`.option-btn[data-index="${index}"]`).forEach(btn => {
-                        btn.classList.remove('btn-light');
-                        btn.classList.add('btn-primary');
-                    });
-                    
-                    selectedOption = parseInt(index);
-                    
-                    // Check the answer if not in practice mode or if instant feedback is enabled
-                    if (!practiceMode || instantFeedbackSetting.checked) {
-                        setTimeout(checkAnswer, 500);
-                    } else {
-                        // In practice mode without instant feedback, just enable next button
-                        nextBtn.disabled = false;
-                    }
-                });
-            });
-            
-            // Update bookmark and mark review buttons
-            updateBookmarkButton();
-            updateMarkReviewButton();
-            
-            // Hide feedback and hint
-            feedbackEl.classList.add('d-none');
-            hintBox.classList.add('d-none');
-            
-            // Update button states
-            prevBtn.disabled = currentQuestion === 0;
-            nextBtn.disabled = practiceMode && !instantFeedbackSetting.checked;
-            
-            // Update progress bar
-            updateProgressBar();
-            
-            // Auto-read the question if setting is enabled
-            if (readAloudSetting.checked) {
-                readQuestionAloud('en');
-            }
-        }
+      // TTS controls
+      document.getElementById('read-en').addEventListener('click', ()=>readQuestionAloud('en'));
+      document.getElementById('read-ur').addEventListener('click', ()=>readQuestionAloud('ur'));
+      document.getElementById('stop-tts').addEventListener('click', stopTTS);
+      modeSelect.addEventListener('change', applyMode);
+      densitySelect.addEventListener('change', applyDensity);
+    }
 
-        function checkAnswer() {
-            if (selectedOption === null) return;
-            
-            const question = quizQuestions[currentQuestion];
-            const isCorrect = selectedOption === question.correctAnswer;
-            
-            // Record answer
-            answeredQuestions[question.id] = {
-                correct: isCorrect,
-                selectedOption: selectedOption,
-                timestamp: Date.now()
-            };
-            
-            // Store user answer for review
-            userAnswers[currentQuestion] = {
-                question: question,
-                selectedOption: selectedOption,
-                isCorrect: isCorrect
-            };
-            
-            if (isCorrect) {
-                score++;
-                feedbackTextEl.innerHTML = `<i class="fas fa-check-circle me-2"></i> Correct! ${question.explanation}`;
-                feedbackEl.classList.remove('d-none', 'alert-info', 'alert-danger');
-                feedbackEl.classList.add('alert-success');
-                
-                // Highlight correct answer
-                document.querySelectorAll(`.option-btn[data-index="${question.correctAnswer}"]`).forEach(btn => {
-                    btn.classList.remove('btn-primary', 'btn-secondary', 'btn-light');
-                    btn.classList.add('btn-success', 'correct');
-                });
-                
-                // Increase learning streak for correct answers
-                learningStreak++;
-            } else {
-                feedbackTextEl.innerHTML = `<i class="fas fa-times-circle me-2"></i> Incorrect. ${question.explanation}`;
-                feedbackEl.classList.remove('d-none', 'alert-info', 'alert-success');
-                feedbackEl.classList.add('alert-danger');
-                
-                // Highlight correct answer
-                document.querySelectorAll(`.option-btn[data-index="${question.correctAnswer}"]`).forEach(btn => {
-                    btn.classList.remove('btn-primary', 'btn-secondary', 'btn-light');
-                    btn.classList.add('btn-success', 'correct');
-                });
-                
-                // Highlight incorrect answer
-                document.querySelectorAll(`.option-btn[data-index="${selectedOption}"]`).forEach(btn => {
-                    btn.classList.remove('btn-primary');
-                    btn.classList.add('btn-danger', 'incorrect');
-                });
-                
-                // Reset learning streak for incorrect answers
-                learningStreak = 0;
-            }
-            
-            totalAnswered++;
-            scoreEl.textContent = score;
-            totalAnsweredEl.textContent = totalAnswered;
-            
-            // Show feedback
-            feedbackEl.classList.remove('d-none');
-            
-            // Save user data
-            saveUserData();
-            
-            // Auto move to next question after a delay if not in practice mode
-            if (!practiceMode) {
-                setTimeout(() => {
-                    if (currentQuestion < quizQuestions.length - 1) {
-                        nextQuestion();
-                    }
-                }, 2000);
-            }
-        }
+    function loadUserData(){
+      try {
+        bookmarkedQuestions = JSON.parse(localStorage.getItem('dvsaBookmarks')||'[]');
+        answeredQuestions = JSON.parse(localStorage.getItem('dvsaAnswers')||'{}');
+        const savedTheme = localStorage.getItem('dvsaTheme'); if(savedTheme){ document.documentElement.setAttribute('data-theme', savedTheme); themeToggle.checked = savedTheme==='dark'; }
+      } catch { /* ignore */ }
+    }
+    function saveUserData(){
+      localStorage.setItem('dvsaBookmarks', JSON.stringify(bookmarkedQuestions));
+      localStorage.setItem('dvsaAnswers', JSON.stringify(answeredQuestions));
+    }
 
-        function nextQuestion() {
-            if (currentQuestion < quizQuestions.length - 1) {
-                currentQuestion++;
-                selectedOption = null;
-                showQuestion();
-            } else {
-                finishQuiz();
-            }
-        }
+    function updateDashboardStats(){
+      const total = questions.length; totalQuestionsStats.textContent = total;
+      const correctCount = Object.values(answeredQuestions).filter(a=>a.correct).length;
+      const mastery = total? Math.round((correctCount/total)*100):0; masteryScore.textContent = mastery+"%";
+    }
 
-        function prevQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                selectedOption = null;
-                showQuestion();
-            }
-        }
+    function startQuiz(){
+      // Build list according to category
+      const category = currentCategory==='all'? null: currentCategory;
+      quizQuestions = category? questions.filter(q=>q.category===category): [...questions];
+      quizQuestions = shuffleArray(quizQuestions);
 
-        function finishQuiz() {
-            // Stop timer
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-            }
-            
-            // Calculate time taken
-            const timeTaken = Math.floor((Date.now() - startTime) / 1000);
-            const minutes = Math.floor(timeTaken / 60);
-            const seconds = timeTaken % 60;
-            
-            // Update results
-            finalScoreEl.textContent = score;
-            totalQuestionsFinalEl.textContent = quizQuestions.length;
-            resultTimeEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            resultStreakEl.textContent = learningStreak;
-            
-            const percentage = Math.round((score / quizQuestions.length) * 100);
-            resultPercentageEl.textContent = `${percentage}%`;
-            
-            if (percentage >= 85) {
-                resultMessageEl.textContent = "Excellent! You've passed!";
-                resultMessageEl.style.color = "var(--success)";
-            } else if (percentage >= 70) {
-                resultMessageEl.textContent = "Good effort, but more practice needed";
-                resultMessageEl.style.color = "var(--warning)";
-            } else {
-                resultMessageEl.textContent = "You need more practice";
-                resultMessageEl.style.color = "var(--danger)";
-            }
-            
-            resultDetailEl.textContent = `You scored ${score} out of ${quizQuestions.length} questions correctly.`;
-            
-            // Update progress circle
-            document.querySelector('.score-circle').style.setProperty('--p', `${percentage}%`);
-            
-            // Show results view
-            quizView.classList.add('d-none');
-            resultsView.classList.remove('d-none');
-            
-            // Update dashboard stats
-            updateDashboardStats();
-            
-            // Save user data
-            saveUserData();
-        }
+      const limit = parseInt(questionsLimit.value); if(limit>0 && limit<quizQuestions.length) quizQuestions = quizQuestions.slice(0, limit);
 
-        function restartQuiz() {
-            startQuiz(practiceMode);
-        }
+      currentQuestion=0; score=0; totalAnswered=0; selectedOption=null; userAnswers={};
 
-        function showReview() {
-            const reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
-            const reviewContent = document.getElementById('review-content');
-            
-            reviewContent.innerHTML = '';
-            
-            quizQuestions.forEach((question, index) => {
-                const userAnswer = userAnswers[index];
-                const isCorrect = userAnswer ? userAnswer.isCorrect : false;
-                const selectedOption = userAnswer ? userAnswer.selectedOption : -1;
-                
-                const reviewItem = document.createElement('div');
-                reviewItem.className = `card mb-3 ${isCorrect ? 'border-success' : 'border-danger'}`;
-                
-                reviewItem.innerHTML = `
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <span>Question ${index + 1}</span>
-                        <span class="badge ${isCorrect ? 'bg-success' : 'bg-danger'}">${isCorrect ? 'Correct' : 'Incorrect'}</span>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-6">
-                                <p class="fw-bold">${question.question}</p>
-                            </div>
-                            <div class="col-6 urdu-text">
-                                <p class="fw-bold">${urduTranslations.questions[question.id - 1]}</p>
-                            </div>
-                        </div>
-                        ${question.image ? `<div class="text-center mb-3"><img src="${question.image}" class="road-sign" alt="Road sign"></div>` : ''}
-                        <div class="options">
-                            ${question.options.map((option, optIndex) => `
-                                <div class="form-check ${optIndex === question.correctAnswer ? 'text-success' : (optIndex === selectedOption ? 'text-danger' : '')}">
-                                    <input class="form-check-input" type="radio" disabled ${optIndex === selectedOption ? 'checked' : ''}>
-                                    <label class="form-check-label">
-                                        ${String.fromCharCode(65 + optIndex)}. ${option}
-                                    </label>
-                                    ${optIndex === question.correctAnswer ? '<i class="fas fa-check ms-2"></i>' : ''}
-                                    ${optIndex === selectedOption && !isCorrect ? '<i class="fas fa-times ms-2"></i>' : ''}
-                                </div>
-                            `).join('')}
-                        </div>
-                        <div class="mt-3">
-                            <div class="row">
-                                <div class="col-6">
-                                    <p class="text-muted">${question.explanation}</p>
-                                </div>
-                                <div class="col-6 urdu-text">
-                                    <p class="text-muted">${question.explanationUr}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                reviewContent.appendChild(reviewItem);
-            });
-            
-            reviewModal.show();
-        }
+      const timeLimitMinutes = parseInt(timeLimit.value); timeRemaining = timeLimitMinutes*60; startTime = Date.now();
+      if(timeLimitMinutes>0){ startTimer(); } else { timerEl.textContent='No Limit'; clearInterval(timerInterval); }
 
-        function showDashboard() {
-            quizView.classList.add('d-none');
-            resultsView.classList.add('d-none');
-            dashboardView.classList.remove('d-none');
-            
-            // Update dashboard stats
-            updateDashboardStats();
-        }
+      totalQuestionsEl.textContent = quizQuestions.length; document.getElementById('total-questions-final').textContent = quizQuestions.length;
+      scoreEl.textContent=score; totalAnsweredEl.textContent=totalAnswered;
 
-        function showBookmarkedQuestions() {
-            // Filter questions to only show bookmarked ones
-            quizQuestions = questions.filter(q => bookmarkedQuestions.includes(q.id));
-            
-            if (quizQuestions.length === 0) {
-                alert("You haven't bookmarked any questions yet.");
-                return;
-            }
-            
-            // Start quiz with bookmarked questions
-            startQuiz(true);
-        }
+      dashboardView.classList.add('hidden'); resultsView.classList.add('hidden'); quizView.classList.remove('hidden');
+      applyMode(); applyDensity();
+      showQuestion();
+    }
 
-        function toggleBookmark() {
-            const questionId = quizQuestions[currentQuestion].id;
-            const index = bookmarkedQuestions.indexOf(questionId);
-            
-            if (index === -1) {
-                // Add bookmark
-                bookmarkedQuestions.push(questionId);
-            } else {
-                // Remove bookmark
-                bookmarkedQuestions.splice(index, 1);
-            }
-            
-            // Update button
-            updateBookmarkButton();
-            
-            // Save user data
-            saveUserData();
-            
-            // Update dashboard stats
-            updateDashboardStats();
-        }
+    function showQuestion(){
+      if(currentQuestion>=quizQuestions.length){ finishQuiz(); return; }
+      const q = quizQuestions[currentQuestion];
 
-        function toggleMarkReview() {
-            const questionId = quizQuestions[currentQuestion].id;
-            const index = markedForReview.indexOf(questionId);
-            
-            if (index === -1) {
-                // Mark for review
-                markedForReview.push(questionId);
-                markReviewBtn.innerHTML = '<i class="fas fa-flag"></i>';
-                markReviewBtn.classList.add('active');
-            } else {
-                // Remove mark
-                markedForReview.splice(index, 1);
-                markReviewBtn.innerHTML = '<i class="far fa-flag"></i>';
-                markReviewBtn.classList.remove('active');
-            }
-            
-            // Save user data
-            saveUserData();
-        }
+      questionEnEl.textContent = q.question;
+      questionUrEl.textContent = urduTranslations.questions[q.id-1];
 
-        function updateBookmarkButton() {
-            const questionId = quizQuestions[currentQuestion].id;
-            const isBookmarked = bookmarkedQuestions.includes(questionId);
-            
-            if (isBookmarked) {
-                bookmarkBtn.innerHTML = '<i class="fas fa-bookmark"></i>';
-                bookmarkBtn.classList.add('active');
-            } else {
-                bookmarkBtn.innerHTML = '<i class="far fa-bookmark"></i>';
-                bookmarkBtn.classList.remove('active');
-            }
-        }
+      if(q.image){ signContainer.classList.remove('hidden'); roadSign.src=q.image; roadSign.alt=q.question; }
+      else { signContainer.classList.add('hidden'); }
 
-        function updateMarkReviewButton() {
-            const questionId = quizQuestions[currentQuestion].id;
-            const isMarked = markedForReview.includes(questionId);
-            
-            if (isMarked) {
-                markReviewBtn.innerHTML = '<i class="fas fa-flag"></i>';
-                markReviewBtn.classList.add('active');
-            } else {
-                markReviewBtn.innerHTML = '<i class="far fa-flag"></i>';
-                markReviewBtn.classList.remove('active');
-            }
-        }
+      currentQuestionEl.textContent = currentQuestion+1;
+      optionsContainer.innerHTML = q.options.map((opt,i)=>{
+        const ur = urduTranslations.options[q.id-1][i];
+        return `<div class="option" data-index="${i}">
+                  <div class="pill">${String.fromCharCode(65+i)}</div>
+                  <div class="bilingual">
+                    <div class="option-text-en">${opt}</div>
+                    <div class="option-text-ur urdu-text">${ur}</div>
+                  </div>
+                </div>`;
+      }).join('');
 
-        function toggleHint() {
-            if (hintBox.classList.contains('d-none') && hintsSetting.checked) {
-                const question = quizQuestions[currentQuestion];
-                hintText.textContent = question.hint;
-                hintBox.classList.remove('d-none');
-            } else {
-                hintBox.classList.add('d-none');
-            }
-        }
+      updateBookmarkButton();
+      feedbackEl.classList.add('hidden'); hintBox.classList.add('hidden');
+      prevBtn.disabled = currentQuestion===0;
+      updateProgressBar();
 
-        function readQuestionAloud(language) {
-            if (speechSynthesis.speaking) {
-                speechSynthesis.cancel();
-            }
-            
-            const question = quizQuestions[currentQuestion];
-            let text = '';
-            
-            if (language === 'en') {
-                text = `Question ${currentQuestion + 1}: ${question.question}. Options: ${question.options.map((opt, i) => `${String.fromCharCode(65 + i)}: ${opt}`).join('. ')}`;
-            } else {
-                text = `سوال ${currentQuestion + 1}: ${urduTranslations.questions[question.id - 1]}. Options: ${urduTranslations.options[question.id - 1].map((opt, i) => `${String.fromCharCode(65 + i)}: ${opt}`).join('. ')}`;
-            }
-            
-            const utterance = new SpeechSynthesisUtterance(text);
-            
-            if (language === 'ur') {
-                // Try to set Urdu voice if available
-                const urduVoice = speechSynthesis.getVoices().find(voice => 
-                    voice.lang.includes('ur') || voice.lang.includes('UR')
-                );
-                
-                if (urduVoice) {
-                    utterance.voice = urduVoice;
-                } else {
-                    utterance.lang = 'ur-PK';
-                }
-            }
-            
-            utterance.rate = 0.9;
-            utterance.pitch = 1;
-            utterance.volume = 1;
-            
-            speechSynthesis.speak(utterance);
-        }
+      if(readAloudSetting.checked && modeSelect.value==='practice'){ readQuestionAloud('en'); }
+    }
 
-        function startTimer() {
-            if (timerInterval) {
-                clearInterval(timerInterval);
-            }
-            
-            updateTimerDisplay();
-            
-            timerInterval = setInterval(() => {
-                timeRemaining--;
-                updateTimerDisplay();
-                
-                if (timeRemaining <= 0) {
-                    clearInterval(timerInterval);
-                    finishQuiz();
-                }
-            }, 1000);
-        }
+    function selectOption(index){ selectedOption = index; window.setTimeout(checkAnswer, 80); }
 
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timeRemaining / 60);
-            const seconds = timeRemaining % 60;
-            timerEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            
-            // Change color when time is running out
-            if (timeRemaining < 60) {
-                timerEl.style.color = 'var(--danger)';
-            } else if (timeRemaining < 120) {
-                timerEl.style.color = 'var(--warning)';
-            } else {
-                timerEl.style.color = 'var(--primary)';
-            }
-        }
+    function checkAnswer(){ if(selectedOption==null) return; const q = quizQuestions[currentQuestion]; const correct = selectedOption===q.correctAnswer;
+      answeredQuestions[q.id] = { correct, selectedOption, timestamp: Date.now() };
+      userAnswers[currentQuestion] = { question:q, selectedOption, isCorrect:correct };
 
-        function updateProgressBar() {
-            const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
-            progressBar.style.width = `${progress}%`;
-        }
+      // Visual feedback
+      [...optionsContainer.querySelectorAll('[data-index]')].forEach(btn=>btn.classList.remove('selected','correct','incorrect'));
+      const correctBtns = optionsContainer.querySelectorAll(`[data-index="${q.correctAnswer}"]`);
+      correctBtns.forEach(b=>b.classList.add('correct'));
+      const selectedBtns = optionsContainer.querySelectorAll(`[data-index="${selectedOption}"]`);
+      selectedBtns.forEach(b=>b.classList.add(correct? 'correct':'incorrect'));
 
-        function setCategory(category) {
-            currentCategory = category;
-            
-            // Update active button
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector(`.category-btn[data-category="${category}"]`).classList.add('active');
-        }
+      if(correct){ score++; feedbackEl.className='alert alert-success mt-3'; feedbackTextEl.innerHTML = `<i class="fas fa-check-circle me-2"></i>Correct! ${q.explanation}`; }
+      else { feedbackEl.className='alert alert-danger mt-3'; feedbackTextEl.innerHTML = `<i class="fas fa-times-circle me-2"></i>Incorrect. ${q.explanation}`; }
 
-        function toggleTheme() {
-            if (themeToggle.checked) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                localStorage.setItem('dvsaTheme', 'dark');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-                localStorage.setItem('dvsaTheme', 'light');
-            }
-        }
+      feedbackEl.classList.remove('hidden');
+      totalAnswered++; scoreEl.textContent=score; totalAnsweredEl.textContent=totalAnswered; saveUserData();
 
-        function applyTheme() {
-            if (themeToggle.checked) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-            }
-        }
+      // Auto-next
+      setTimeout(()=>{ if(currentQuestion<quizQuestions.length-1) nextQuestion(); else finishQuiz(); }, 1100);
+    }
 
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
+    function nextQuestion(){ if(currentQuestion<quizQuestions.length-1){ currentQuestion++; selectedOption=null; showQuestion(); } else { finishQuiz(); } }
+    function prevQuestion(){ if(currentQuestion>0){ currentQuestion--; selectedOption=null; showQuestion(); } }
 
-        function showPWAInstructions() {
-            alert("To add this app to your home screen:\n\n1. Tap the Share button (box with arrow) at the bottom of Safari\n2. Scroll down and tap 'Add to Home Screen'\n3. Tap 'Add' in the top right corner\n\nThis will place the app icon on your home screen for easy access!");
-        }
+    function finishQuiz(){ if(timerInterval){ clearInterval(timerInterval); timerInterval=null; }
+      const timeTaken = Math.floor((Date.now()-startTime)/1000); const m=Math.floor(timeTaken/60), s=timeTaken%60;
+      document.getElementById('final-score').textContent=score; document.getElementById('result-time').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+      const pct = Math.round((score/quizQuestions.length)*100); document.getElementById('result-percentage').textContent=`${pct}%`;
+      const rm = document.getElementById('result-message'); rm.textContent = pct>=85? "Excellent! You've passed!": pct>=70? "Good effort, keep practicing": "You need more practice";
+      document.getElementById('result-detail').textContent = `You scored ${score} out of ${quizQuestions.length} questions correctly.`;
+      quizView.classList.add('hidden'); resultsView.classList.remove('hidden'); updateDashboardStats();
+    }
 
-        function showQuickSettings() {
-            // Scroll to settings section
-            document.querySelector('[for="read-aloud-setting"]').closest('.card').scrollIntoView({
-                behavior: 'smooth'
-            });
-            
-            // Pulse animation for attention
-            const settingsCard = document.querySelector('[for="read-aloud-setting"]').closest('.card');
-            settingsCard.classList.add('pulse');
-            setTimeout(() => {
-                settingsCard.classList.remove('pulse');
-            }, 2000);
-        }
+    function showBookmarkedQuestions(){ quizQuestions = questions.filter(q=>bookmarkedQuestions.includes(q.id)); if(!quizQuestions.length){ alert("No bookmarks yet."); return; } startQuiz(); }
 
-        // Initialize the app when the DOM is loaded
-        document.addEventListener('DOMContentLoaded', initApp);
-    </script>
+    function toggleBookmark(){ const id = quizQuestions[currentQuestion].id; const i=bookmarkedQuestions.indexOf(id); if(i===-1) bookmarkedQuestions.push(id); else bookmarkedQuestions.splice(i,1); updateBookmarkButton(); saveUserData(); }
+    function updateBookmarkButton(){ const id = quizQuestions[currentQuestion].id; const on = bookmarkedQuestions.includes(id); bookmarkBtn.innerHTML = on? '<i class="fas fa-bookmark"></i>':'<i class="far fa-bookmark"></i>'; }
+
+    function toggleHint(){ if(modeSelect.value==='exam') return; const q = quizQuestions[currentQuestion]; hintText.textContent = q.hint; hintBox.classList.toggle('hidden'); }
+
+    function updateProgressBar(){ const progress = ((currentQuestion+1)/quizQuestions.length)*100; requestAnimationFrame(()=>{ progressBar.style.width = progress.toFixed(2)+"%"; }); }
+
+    function setCategory(category){ currentCategory=category; [...categoryFilter.querySelectorAll('.chip')].forEach(el=>el.classList.toggle('active', el.dataset.category===category)); }
+
+    function toggleTheme(){ const theme = themeToggle.checked? 'dark':'light'; document.documentElement.setAttribute('data-theme', theme); localStorage.setItem('dvsaTheme', theme); }
+    function applyTheme(){ const cur = document.documentElement.getAttribute('data-theme') || 'light'; themeToggle.checked = cur==='dark'; }
+
+    function applyMode(){ const mode = modeSelect.value; if(mode==='exam'){ hintsSetting.checked=false; readAloudSetting.checked=false; } }
+    function applyDensity(){ const d = densitySelect.value; document.body.style.setProperty('--option-padding', d==='compact'? '6px 10px':'10px 12px'); const list = document.querySelectorAll('.option'); list.forEach(el=>el.style.padding = d==='compact'? '6px 10px':'10px 12px'); }
+
+    function startTimer(){ clearInterval(timerInterval); updateTimerDisplay(); timerInterval = setInterval(()=>{ timeRemaining--; updateTimerDisplay(); if(timeRemaining<=0){ clearInterval(timerInterval); finishQuiz(); } }, 1000); }
+    function updateTimerDisplay(){ const m=Math.floor(timeRemaining/60), s=timeRemaining%60; timerEl.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; timerEl.style.color = timeRemaining<60? 'var(--danger)': timeRemaining<120? 'var(--warning)': 'var(--primary)'; }
+
+    function showPWAInstructions(){ alert("To add this app to your home screen:\n\n• iOS Safari: Share → Add to Home Screen\n• Android Chrome: Menu → Add to Home Screen"); }
+    function resetProgress(){ if(confirm('Reset all progress, answers, and bookmarks?')){ localStorage.removeItem('dvsaBookmarks'); localStorage.removeItem('dvsaAnswers'); bookmarkedQuestions=[]; answeredQuestions={}; updateDashboardStats(); alert('Progress reset.'); } }
+
+    function shuffleArray(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
+
+    // ========================= TTS (Robust, chunked, Urdu-friendly) =========================
+    const synth = window.speechSynthesis;
+    let voicesCache = []; let speakQueue = []; let speaking=false; let speakTimer=null;
+
+    function loadVoices(){ voicesCache = synth.getVoices(); }
+    loadVoices(); if(typeof speechSynthesis !== 'undefined'){ speechSynthesis.onvoiceschanged = loadVoices; }
+
+    function chooseVoice(lang){
+      if(!voicesCache.length) loadVoices();
+      const pri = voicesCache.find(v=> v.lang && v.lang.toLowerCase().startsWith(lang));
+      if(pri) return pri;
+      // Urdu fallbacks
+      if(lang.startsWith('ur')){
+        const alt = voicesCache.find(v=>/hi|ar|fa|ps/i.test(v.lang)); if(alt) return alt;
+      }
+      return voicesCache[0]||null;
+    }
+
+    function chunkText(t){
+      // split into ~180-char chunks on sentence boundaries to avoid TTS stalls
+      const parts=[]; const max=180; let cur='';
+      t.split(/([.!؟?،,؛]\s+)/).forEach(seg=>{
+        if((cur+seg).length>max){ if(cur) parts.push(cur.trim()); cur=seg; } else cur+=seg;
+      });
+      if(cur.trim()) parts.push(cur.trim());
+      return parts.length? parts: [t];
+    }
+
+    function stopTTS(){ speaking=false; speakQueue=[]; try{ synth.cancel(); }catch{} if(speakTimer){ clearTimeout(speakTimer); speakTimer=null; } }
+
+    function speak(text, lang){
+      stopTTS(); const chunks = chunkText(text); const voice = chooseVoice(lang);
+      let rate = parseFloat(ttsSpeed.value||'0.9');
+      speaking=true;
+      const playNext = ()=>{
+        if(!speaking) return; if(!chunks.length){ speaking=false; return; }
+        const u = new SpeechSynthesisUtterance(chunks.shift());
+        if(voice) u.voice=voice; u.lang = voice?.lang || (lang==='ur'? 'ur-PK':'en-GB');
+        u.rate = rate; u.pitch = 1; u.volume = 1;
+        // watchdog: sometimes onend never fires in some browsers; force-advance
+        let ended=false; const watchdog = setTimeout(()=>{ if(!ended){ ended=true; playNext(); } }, Math.max(1500, u.text.length*20));
+        u.onend = ()=>{ if(ended) return; clearTimeout(watchdog); playNext(); };
+        u.onerror = ()=>{ clearTimeout(watchdog); playNext(); };
+        synth.speak(u);
+      };
+      playNext();
+    }
+
+    function readQuestionAloud(language){ const q = quizQuestions[currentQuestion]; if(!q) return; const idx = currentQuestion+1;
+      if(language==='en'){
+        const text = `Question ${idx}. ${q.question}. Options: ${q.options.map((o,i)=>String.fromCharCode(65+i)+'. '+o).join('. ')}`; speak(text, 'en');
+      } else {
+        const text = `سوال ${idx}. ${urduTranslations.questions[q.id-1]}. اختیارات: ${urduTranslations.options[q.id-1].map((o,i)=>String.fromCharCode(65+i)+'. '+o).join('، ')}`; speak(text, 'ur');
+      }
+    }
+  </script>
 </body>
 </html>
